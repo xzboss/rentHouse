@@ -2,6 +2,6 @@ import React from 'react'
 
 export default (props:any) => {
 	return (
-		<div>404</div>
+		<div>404...</div>
 	)
 }
