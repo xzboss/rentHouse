@@ -1,0 +1,29 @@
+.nav {
+	display: flex;
+	justify-content: space-between;
+	align-content: center;
+	align-items: center;
+	overflow-x: auto;
+	//height: 55px;
+	box-sizing: content-box;
+	min-height: 80px;
+
+	&::-webkit-scrollbar {
+		& {
+			width: 100%;
+			height: 10px;
+		}
+
+		&-track {
+			-webkit-box-shadow: inset 0 0 6px rgba(220, 217, 217, 0.1);
+			border-radius: 10px;
+			background-color: #F5F5F5;
+		}
+
+		&-thumb {
+			border-radius: 10px;
+			background-color: rgba(0, 0, 0, 0.1);
+		}
+
+	}
+}

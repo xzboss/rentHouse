@@ -1,0 +1,23 @@
+{
+  "private": true,
+  "author": "xuzhou <942875315@qq.com>",
+  "scripts": {
+    "dev": "umi dev",
+    "build": "umi build",
+    "postinstall": "umi setup",
+    "setup": "umi setup",
+    "start": "npm run dev"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^5.0.1",
+    "antd": "^5.4.7",
+    "umi": "^4.0.67"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.6",
+    "@types/react-dom": "^18.2.4",
+    "@umijs/plugins": "^4.0.68",
+    "babel-plugin-dynamic-import-node": "^2.3.3",
+    "typescript": "^5.0.4"
+  }
+}

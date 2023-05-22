@@ -1,0 +1,53 @@
+.box {
+	position: relative;
+	min-height: 4rem;
+
+	label {
+		left: 6px;
+		top: 14px;
+		position: absolute;
+		opacity: 1;
+		transition-property: top;
+		transition: .3s;
+		padding: 2px 10px;
+		color: rgba(0, 0, 0, .5);
+	}
+
+	input {
+		position: absolute;
+		width: 100%;
+		outline-style: none;
+		border-style: none;
+		border: 1px solid rgba(0, 0, 0, .1);
+		padding: 15px;
+		caret-color: rgb(56, 255, 106);
+		border-radius: 2px;
+		transition: all .3s;
+
+		::placeholder {
+			opacity: 0;
+		}
+
+		/* 聚焦后 */
+		&:focus {
+			border-width: 2px;
+			border-color: rgba(0, 0, 0, .3);
+			border-radius: 10px;
+
+			+label {
+				transform: scale(.9);
+				top: -14px;
+				background-color: rgb(255, 255, 255);
+			}
+		}
+
+		/* 有内容失去焦点 */
+		&:not(:placeholder-shown)+label {
+			transform: scale(.9);
+			top: -14px;
+			background-color: rgb(255, 255, 255);
+		}
+	}
+
+
+}

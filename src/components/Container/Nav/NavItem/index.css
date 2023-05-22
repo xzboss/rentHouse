@@ -1,0 +1,13 @@
+.NavItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  flex: 1 0 100px;
+  height: 50px;
+  cursor: pointer;
+  transition: 0.1s;
+}
+.NavItem:hover {
+  transform: scale(1.05);
+}

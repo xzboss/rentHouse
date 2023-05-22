@@ -1,0 +1,33 @@
+.head {
+  height: 100px;
+}
+.head img {
+  max-width: 200px;
+  cursor: pointer;
+}
+.head .menu {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.head .menu a {
+  text-align: center;
+}
+.head .menu .btns {
+  margin-left: 10px;
+  min-width: 20%;
+  font-size: 1rem;
+  color: black;
+}
+.head .menu .btn {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 0.5rem 0.8rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-around;
+  transition: 0.2s;
+}
+.head .menu .btn:hover {
+  border-radius: 5px;
+}

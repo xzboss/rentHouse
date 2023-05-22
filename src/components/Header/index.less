@@ -1,0 +1,40 @@
+.head {
+	height: 100px;
+
+	img {
+		max-width: 200px;
+		cursor: pointer;
+	}
+
+	.menu {
+		width: 100%;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+
+		a {
+			text-align: center;
+		}
+
+		.btns {
+			margin-left: 10px;
+			min-width: 20%;
+			font-size: 1rem;
+			color: black;
+		}
+
+		.btn {
+			border: 1px solid rgba(0, 0, 0, .2);
+			padding: .5rem .8rem;
+			border-radius: 10px;
+			display: flex;
+			justify-content: space-around;
+			transition: .2s;
+
+			&:hover {
+				border-radius: 5px;
+			}
+		}
+	}
+
+}
