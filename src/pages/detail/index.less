@@ -1,0 +1,43 @@
+@grayColor: gray;
+@import url('../../global.less');
+
+.img {
+	max-height: 400px;
+	overflow: hidden;
+	position: relative;
+	margin-bottom: 50px;
+}
+
+p,
+span {
+	color: @grayColor;
+	font-size: .9rem;
+}
+
+b {
+	margin-bottom: 20px;
+}
+
+.space {
+	display: flex;
+	align-content: center;
+
+	h2 {
+		padding-right: 10px !important;
+	}
+}
+
+.leftBox {
+	padding: 20px;
+	border: 1px solid @borderColor;
+	border-radius: @borderRadius;
+
+	h1 {
+		margin-bottom: 0;
+	}
+
+	.price {
+		display: flex;
+		justify-content: space-between;
+	}
+}

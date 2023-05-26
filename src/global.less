@@ -1,0 +1,33 @@
+@red: #ef551e;
+@borderRadius: 15px;
+@borderColor: rgba(0, 0, 0, 0.1);
+
+@green: #14d05b;
+
+* {
+	/* border: 1px solid black; */
+	padding: 0;
+	margin: 0;
+
+	&::-webkit-scrollbar {
+		& {
+			width: 10px;
+			height: 10px;
+		}
+
+		&-track {
+			-webkit-box-shadow: inset 0 0 6px rgba(220, 217, 217, 0.1);
+			border-radius: 10px;
+			background-color: #F5F5F5;
+		}
+
+		&-thumb {
+			border-radius: 10px;
+			background-color: rgba(@green, .5);
+		}
+	}
+}
+
+.ant-modal-confirm-content {
+	width: 100%;
+}

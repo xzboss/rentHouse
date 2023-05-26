@@ -1,6 +1,6 @@
 import React from 'react'
 
-import './font.css'
+import '@/assets/icon/iconfont.css'
 import style from './index.less'
 export default (props: any) => {
 	return (

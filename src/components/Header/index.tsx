@@ -37,7 +37,7 @@ function Menu() {
 		setIsLogin(false)
 	}
 
-	useEffect(() => { openModal(<Register />) }, [])
+
 
 	//动态路由菜单
 	let items: MenuProps['items']
@@ -66,7 +66,7 @@ function Menu() {
 						<Space>
 							<MenuOutlined />
 							<UserOutlined />
-							
+
 						</Space>
 					</div>
 				</a>

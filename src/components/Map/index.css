@@ -1,0 +1,9 @@
+.myMap {
+  height: 400px;
+  border-radius: 15px;
+  transition: all 0.3s;
+  box-shadow: 0 0 20px -10px;
+}
+.myMap:hover {
+  box-shadow: 0 0 20px -5px;
+}

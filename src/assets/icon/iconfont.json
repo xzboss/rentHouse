@@ -1,0 +1,79 @@
+{
+  "id": "4073515",
+  "name": "umi-租房",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "775364",
+      "name": "露营_camping1",
+      "font_class": "luyingcamping1",
+      "unicode": "e639",
+      "unicode_decimal": 58937
+    },
+    {
+      "icon_id": "6802003",
+      "name": "Desert",
+      "font_class": "Desert",
+      "unicode": "e6f7",
+      "unicode_decimal": 59127
+    },
+    {
+      "icon_id": "7214930",
+      "name": "Snowflake",
+      "font_class": "Snowflake",
+      "unicode": "e6d2",
+      "unicode_decimal": 59090
+    },
+    {
+      "icon_id": "10139908",
+      "name": "beach-parasol-water-1",
+      "font_class": "beach-parasol-water-",
+      "unicode": "e698",
+      "unicode_decimal": 59032
+    },
+    {
+      "icon_id": "16213736",
+      "name": "线性海岛",
+      "font_class": "xianxinghaidao",
+      "unicode": "e61f",
+      "unicode_decimal": 58911
+    },
+    {
+      "icon_id": "19604171",
+      "name": "building-modern-1",
+      "font_class": "building-modern-1",
+      "unicode": "e699",
+      "unicode_decimal": 59033
+    },
+    {
+      "icon_id": "23403654",
+      "name": "钓鱼",
+      "font_class": "diaoyu",
+      "unicode": "e650",
+      "unicode_decimal": 58960
+    },
+    {
+      "icon_id": "23791299",
+      "name": "所属乡村",
+      "font_class": "suoshuxiangcun",
+      "unicode": "ea06",
+      "unicode_decimal": 59910
+    },
+    {
+      "icon_id": "31312992",
+      "name": "滑雪",
+      "font_class": "huaxue",
+      "unicode": "e61c",
+      "unicode_decimal": 58908
+    },
+    {
+      "icon_id": "34809737",
+      "name": "pool",
+      "font_class": "pool",
+      "unicode": "e61e",
+      "unicode_decimal": 58910
+    }
+  ]
+}

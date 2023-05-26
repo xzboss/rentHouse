@@ -11,7 +11,7 @@ export default defineConfig({
   /* initialState: {}, */
   routes: [
     {
-      path: "/", component: "index",
+      path: "/", component: "detail/index.tsx",
       routes: [
         { path: "/:id", component: "index", }
       ]
@@ -20,7 +20,8 @@ export default defineConfig({
     { path: "/myFavorites", component: "myFavorites" },
     { path: "/myProperties", component: "myProperties" },
     { path: "/myReservations", component: "myReservations" },
-    { path: "/myTrips", component: "myTrips" }
+    { path: "/myTrips", component: "myTrips" },
+    { path: "/detail", component: "detail/index.tsx" }
   ],
   npmClient: 'pnpm',
 });

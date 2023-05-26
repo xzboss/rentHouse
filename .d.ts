@@ -8,3 +8,7 @@ declare module '*.gif'
 declare module '*.bmp'
 declare module '*.tiff'
 declare module '*.less'
+declare module 'leaflet' {
+  const content: any
+  export default content
+}

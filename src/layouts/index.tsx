@@ -9,7 +9,9 @@ export default function Layout() {
   return (
     <div className='navs'>
       <Header></Header>
-      <Outlet />
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <Outlet />
+      </div>
       {contextHolder}
     </div>
   );
