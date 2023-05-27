@@ -66,7 +66,6 @@ function Menu() {
 						<Space>
 							<MenuOutlined />
 							<UserOutlined />
-
 						</Space>
 					</div>
 				</a>
@@ -94,7 +93,6 @@ export default function Header() {
 					<Menu />
 				</Col>
 			</Row>
-			<Divider />
 		</div>
 	)
 }

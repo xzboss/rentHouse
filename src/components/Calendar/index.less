@@ -3,7 +3,6 @@
 		font-style: normal;
 		width: 100%;
 		display: block;
-
 	}
 
 	.focus {
@@ -14,14 +13,37 @@
 	}
 
 	.only {
+		.focus();
 		border-radius: 10px;
 	}
 
 	.first {
+		.focus();
 		border-radius: 10px 0 0 10px;
 	}
 
 	.last {
+		.focus();
 		border-radius: 0 10px 10px 0;
 	}
+}
+
+.header {
+	overflow: auto;
+	padding: 0 5%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+
+	.point {
+		transform: scaleX(2);
+	}
+}
+
+.selectBox {
+	display: flex;
+	justify-content: space-around;
+	margin-bottom: 20px;
+	align-items: center;
 }
