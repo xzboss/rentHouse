@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { Image, Divider, Space, Row, Col } from 'antd'
+import { useLocation } from 'umi'
 import { PrimaryButton, HeartButton } from '@/components/Button'
 import '@/assets/icon/iconfont.css'
 import style from './index.less'
 import Map from '@/components/Map'
 import Calender from '@/components/Calendar'
 import dayjs, { Dayjs } from 'dayjs'
+import Bg from '@/components/Bg'
 interface DetailProps {
 
 }
@@ -14,10 +16,14 @@ export default (props: DetailProps) => {
 		xs: 24, sm: 24, md: 24, lg: 24, xl: 20, xxl: 20
 	}
 	const [blur, setBlur] = useState(0)
-	let startDay: Dayjs | null, endDay: Dayjs | null
+	let startDay: Dayjs | null = null
+	let endDay: Dayjs | null = null
 	const day = dayjs()
 	//test
 	const validRange = [day, day.add(300, 'day')] as [Dayjs, Dayjs]
+	const location = useLocation()
+	console.log(location)
+	
 
 	/**
 	 * 获取日历组件选择的时间
@@ -29,17 +35,20 @@ export default (props: DetailProps) => {
 	}
 
 
+
 	/**
 	 * @callback
 	 * 预定
 	 */
 	const reserve = () => {
+		if (!startDay) return
 		console.log(startDay, endDay)
 	}
 
 
 	return (
 		<Col {...screen}>
+			<Bg />
 			<h1>title</h1>
 			<p className=''>亚洲，中国</p>
 			<div className={style.img}>
@@ -91,7 +100,7 @@ export default (props: DetailProps) => {
 						<span>night</span>
 					</Space>
 					<Divider />
-					<Calender validRange={validRange} />
+					<Calender validRange={validRange} getDate={getDate} />
 					<Divider />
 					<PrimaryButton style={{ height: '2.5rem' }} onClick={reserve}>Reserve</PrimaryButton>
 					<Divider />

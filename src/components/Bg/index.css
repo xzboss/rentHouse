@@ -1,0 +1,28 @@
+@keyframes move {
+  100% {
+    transform: translate3d(0, 0, 1px) rotate(360deg);
+  }
+}
+.bg {
+  position: fixed;
+  height: 100%;
+  z-index: -1;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  background: #ffffff;
+  overflow: hidden;
+}
+.bg span {
+  display: block;
+  color: rgba(225, 12, 12, 0.5);
+  width: 14vmin;
+  height: 14vmin;
+  border-radius: 14vmin;
+  backface-visibility: hidden;
+  position: absolute;
+  animation: move;
+  animation-duration: 45;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}

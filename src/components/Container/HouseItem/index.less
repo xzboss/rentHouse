@@ -24,14 +24,24 @@
 		padding: 0;
 	}
 
-	.img {
-		transition: .2s;
-		border-radius: 10px;
+	.imgBox {
+		width: 100%;
+		border-radius: 15px;
+		display: flex;
+		margin: 0;
+		padding: 0;
+		overflow: hidden;
 
-		&:hover {
-			transform: scale(1.1);
+		.img {
+			transition: .2s;
+			border-radius: 10px;
+
+			&:hover {
+				transform: scale(1.1);
+			}
 		}
 	}
+
 
 	.heart {
 

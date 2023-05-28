@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { history } from 'umi'
 import { Image } from 'antd'
 import style from './index.less'
 import { DelButton, HeartButton } from '../../Button'
@@ -18,26 +19,37 @@ interface HouseItemProps {
 const App: React.FC<HouseItemProps> = (props) => {
 	//改变爱心按钮样式
 	const [blur, setBlur] = useState(false)
+
 	/**
-	 * callback
+	 * 去详情
+	 * @callback
 	 */
 	const handleClick = () => {
 		console.log('click')
+		history.push('/detail', {
+			state: {
+				date: 'hello'
+			}
+		})
 	}
-
+	
+	const clickHeart=(e:any)=>{
+		setBlur(!blur);
+		e.stopPropagation();
+	}
 	return (
-		<div className={style['house-item']}>
-			<HeartButton blur={blur} onClick={() => { setBlur(!blur) }} className={style.heart} />
+		<div className={style['house-item']} onClick={handleClick}>
+			<div className={style.imgBox}>
+			<HeartButton blur={blur} onClick={clickHeart} className={style.heart} />
 			<Image className={style.img}
 				onError={() => { }}
 				width={200}
 				preview={false}
 				src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
 			/>
-
-			<div onClick={() => {
-				console.log(11)
-			}}>
+			</div>
+			
+			<div>
 				<b>亚洲，中国</b>
 				<p>沙滩</p>
 				<div>

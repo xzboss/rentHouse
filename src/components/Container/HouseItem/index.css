@@ -21,11 +21,19 @@
   margin-left: -3px;
   padding: 0;
 }
-.house-item .img {
+.house-item .imgBox {
+  width: 100%;
+  border-radius: 15px;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.house-item .imgBox .img {
   transition: 0.2s;
   border-radius: 10px;
 }
-.house-item .img:hover {
+.house-item .imgBox .img:hover {
   transform: scale(1.1);
 }
 .house-item .heart {

@@ -11,9 +11,9 @@ export default defineConfig({
   /* initialState: {}, */
   routes: [
     {
-      path: "/", component: "detail/index.tsx",
+      path: "/", component: "index",
       routes: [
-        { path: "/:id", component: "index", }
+        { path: "/:type", component: "index", }
       ]
     },
     

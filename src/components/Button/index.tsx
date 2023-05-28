@@ -6,9 +6,9 @@ interface btnStyle {
 		[p: string]: any
 	}
 	children?: React.ReactNode
-	onClick?: () => void,
+	onClick?: (e?: any) => void,
 	className?: any
-	blur?: boolean|number
+	blur?: boolean | number
 }
 //默认按钮样式属性值
 const defaultStyle = {

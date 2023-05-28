@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react'
+import React, { useEffect, useState, useCallback, useMemo } from 'react'
 import { Calendar, Select } from 'antd'
 import type { CalendarMode } from 'antd/es/calendar/generateCalendar'
 import { SwapRightOutlined } from '@ant-design/icons'
@@ -16,7 +16,7 @@ dayjs.extend(isSameOrAfter)
 dayjs.extend(dayLocaleData)
 
 interface CalendarProps {
-	getDate?: (startDay: Dayjs | null, endDate: Dayjs | null) => [Dayjs, Dayjs],
+	getDate?: (startDay: Dayjs, endDate: Dayjs) => void,
 	validRange?: [Dayjs, Dayjs]
 	style?: { [p: string]: any }
 	className?: string
@@ -24,16 +24,24 @@ interface CalendarProps {
 const calender: React.FC<CalendarProps> = (props) => {
 
 	const dayNow = dayjs()
-	let [startDay, setStartDay] = useState<Dayjs | null>(dayNow)
-	let [endDay, setEndDay] = useState<Dayjs | null>(dayNow)
+	let startDay: Dayjs | null = dayNow
+	let endDay: Dayjs | null = dayNow
 	let mode = 'month'
 	//panel切换是否由点击panel改变,因为由谁改变都会执行onSelect<-onChange<-onPanelChange
 	let panelChangeByPanel = false
-	/**
-	 * @callback
-	 * 选择后回调
+
+	/** 1
+	 * 面板变化
 	 */
-	const onSelect = (day: Dayjs) => {
+	const onPanelChange = (day: Dayjs, type: string) => {
+		mode = type
+	}
+
+	/** 2
+	 * @callback
+	 * 变化后回调
+	 */
+	const onChange = (day: Dayjs) => {
 		if (panelChangeByPanel) {
 			panelChangeByPanel = false
 			return
@@ -59,6 +67,17 @@ const calender: React.FC<CalendarProps> = (props) => {
 		startDay = day
 	}
 
+
+	/** 3
+	 * @callback
+	 * 点击后回调
+	 */
+	const onSelect = () => {
+		//传给父
+		if (startDay && endDay && !startDay?.isSame(endDay)) {
+			props.getDate?.(startDay!, endDay!)
+		}
+	}
 	/**
 	 * 自定义单元格内容
 	 */
@@ -89,12 +108,7 @@ const calender: React.FC<CalendarProps> = (props) => {
 		}
 		return <i>{date}</i>
 	}
-	/**
-	 * 面板变化
-	 */
-	const onPanelChange = (day: Dayjs, type: string) => {
-		mode = type
-	}
+
 
 	return (
 		<Calendar
@@ -102,13 +116,11 @@ const calender: React.FC<CalendarProps> = (props) => {
 			fullscreen={false}
 			className={`${style.calendar} ${props.className}`}
 			validRange={props.validRange || [dayNow, dayNow.add(99, 'day')]}
+			onChange={onChange}
 			onSelect={onSelect}
 			fullCellRender={fullCellRender}
-			onChange={() => {
-				if (props.getDate) props.getDate(startDay, endDay)
-			}}
 			onPanelChange={onPanelChange}
-			headerRender={({ value, type, onChange, onTypeChange }) => {
+			headerRender={({ onChange }) => {
 				const format = 'YYYY 年 MM 月 DD 日'
 				const startDate = startDay?.format(format) || dayNow.format(format)
 				const endDate = endDay?.format(format) || startDate
