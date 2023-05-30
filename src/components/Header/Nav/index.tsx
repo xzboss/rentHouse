@@ -11,7 +11,6 @@ export default (props: any) => {
 			<div className={style.nav}>
 				{icons.map(item => (<NavItem data={item} key={item.className} />))}
 			</div>
-			<Divider style={{margin:0}}/>
 		</>
 	)
 

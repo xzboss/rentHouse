@@ -1,4 +1,5 @@
 .condition {
+	width: 100%;
 	border: 1px solid rgba(0, 0, 0, .1);
 	display: flex;
 	justify-content: space-around;
@@ -9,17 +10,23 @@
 	margin: 0 auto;
 	padding: 1.1rem;
 	border-radius: 1.7rem;
-	&:hover{
-		transition: .2s;
+	transition: .2s;
+	text-align: center;
+	&:hover {
+
 		transform: scale(1.03);
+		box-shadow: 7px 7px 12px -14px;
 	}
-	span{
-		margin: 0 .5rem;
+
+	span {
+		//margin: 0 .5rem;
 	}
-	span:nth-of-type(1){
+
+	span:nth-of-type(1) {
 		font-weight: bold;
 	}
-	span:nth-of-type(3){
+
+	span:nth-of-type(3) {
 		font-weight: bold;
 	}
 }

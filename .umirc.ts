@@ -11,12 +11,9 @@ export default defineConfig({
   /* initialState: {}, */
   routes: [
     {
-      path: "/", component: "index",
-      routes: [
-        { path: "/:type", component: "index", }
-      ]
+      path: '/', redirect: '/沙滩'
     },
-    
+    { path: "/:type", component: "index", },
     { path: "/myFavorites", component: "myFavorites" },
     { path: "/myProperties", component: "myProperties" },
     { path: "/myReservations", component: "myReservations" },

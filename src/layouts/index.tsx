@@ -8,10 +8,9 @@ export default function Layout() {
   const { isLogin } = useModel('userModel')
   const { contextHolder } = useModel('globalModel')
   return (
-    <div className='navs'>
-
+    <div className='container'>
       <Header></Header>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <div style={{ display: 'flex', justifyContent: 'center',padding:'0 8vw' }}>
         <Outlet />
       </div>
       {contextHolder}

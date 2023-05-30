@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from 'react'
-import { Link, useModel, useNavigate } from 'umi'
+import { Link, useModel, useNavigate, useParams } from 'umi'
 import type, {
 	Row,
 	Col,
@@ -17,6 +17,7 @@ import Condition from './Condition'
 import Login from '../Login'
 import Register from '../Register'
 import { TxtButton } from '../Button'
+import Nav from './Nav'
 //个人信息路由导航
 function Menu() {
 	const { isLogin, setIsLogin } = useModel('userModel')
@@ -56,10 +57,14 @@ function Menu() {
 		]
 	}
 
-
+	const screen = {
+		xs: 0, sm: 0, md: 0, lg: 16, xl: 16, xxl: 16
+	}
 	return (
 		<div className='menu'>
-			<span className='d-1'>这里进入你的空间</span>
+			<Col {...screen}>
+				<span className='menu-des'>MENU</span>
+			</Col>
 			<Dropdown menu={{ items }}>
 				<a onClick={(e) => e.preventDefault()} className='btns'>
 					<div className='btn'>
@@ -80,18 +85,33 @@ export default function Header() {
 	const handleClick = () => {
 		navigate('/')
 	}
+	//房屋类型
+	const params = useParams()
+	console.log(params.type)
+	const screen = {
+		xs: 0, sm: 0, md: 0, lg: 6, xl: 6, xxl: 6
+	}
+	const screen2 = {
+		xs: 18, sm: 18, md: 18, lg: 12, xl: 12, xxl: 12
+	}
+	const screen3 = {
+		xs:6, sm: 6, md: 6, lg: 6, xl: 6, xxl: 6
+	}
 	return (
 		<div className='head'>
-			<Row justify='space-between' gutter={20}>
-				<Col span={6}>
+			<Row justify='space-between' align='middle' gutter={20} wrap={false}>
+				<Col {...screen}>
 					<img src={Logo} alt="logo" onClick={handleClick} />
 				</Col>
-				<Col span={12} style={{ display: 'flex', alignItems: 'center' }}>
+				<Col {...screen2}>
 					<Condition />
 				</Col>
-				<Col span={6} style={{ display: 'flex', alignItems: 'center' }}>
+				<Col {...screen3}>
 					<Menu />
 				</Col>
+			</Row>
+			<Row>
+				<Nav></Nav>
 			</Row>
 		</div>
 	)

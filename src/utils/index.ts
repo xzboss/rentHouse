@@ -34,7 +34,6 @@ export const getColor = (): string => {
 		'#a1de93',
 		'#f47c7c',
 	]
-	console.log(getRandom(0, colorList.length))
 	return colorList[getRandom(0, colorList.length)]
 	
 }

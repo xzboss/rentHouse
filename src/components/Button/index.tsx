@@ -39,8 +39,6 @@ export const PrimaryButton: React.FC<btnStyle> = (props) => {
 }
 /* 爱心按钮 */
 export const HeartButton: React.FC<btnStyle> = (props) => {
-	console.log(props)
-
 	return (
 		<div {...props} style={{ ...props.style }}
 			className={style.heart + ' ' + props.className}>
