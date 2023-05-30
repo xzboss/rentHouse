@@ -86,8 +86,11 @@ export default function Header() {
 		navigate('/')
 	}
 	//房屋类型
-	const params = useParams()
-	console.log(params.type)
+	const { type } = useParams()
+	let isNav = true
+	if (!type) {
+		isNav = false
+	}
 	const screen = {
 		xs: 0, sm: 0, md: 0, lg: 6, xl: 6, xxl: 6
 	}
@@ -95,11 +98,11 @@ export default function Header() {
 		xs: 18, sm: 18, md: 18, lg: 12, xl: 12, xxl: 12
 	}
 	const screen3 = {
-		xs:6, sm: 6, md: 6, lg: 6, xl: 6, xxl: 6
+		xs: 6, sm: 6, md: 6, lg: 6, xl: 6, xxl: 6
 	}
 	return (
 		<div className='head'>
-			<Row justify='space-between' align='middle' gutter={20} wrap={false}>
+			<Row style={{paddingBottom:10}} justify='space-between' align='middle' gutter={20} wrap={false}>
 				<Col {...screen}>
 					<img src={Logo} alt="logo" onClick={handleClick} />
 				</Col>
@@ -110,7 +113,8 @@ export default function Header() {
 					<Menu />
 				</Col>
 			</Row>
-			<Row>
+			<Row style={{ display: isNav ? 'block' : 'none' }}>
+				<Divider style={{ margin: 0 }} />
 				<Nav></Nav>
 			</Row>
 		</div>

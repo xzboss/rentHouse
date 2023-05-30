@@ -18,7 +18,7 @@ export default defineConfig({
     { path: "/myProperties", component: "myProperties" },
     { path: "/myReservations", component: "myReservations" },
     { path: "/myTrips", component: "myTrips" },
-    { path: "/detail", component: "detail/index.tsx" }
+    { path: "/detail", component: "detail" }
   ],
   npmClient: 'pnpm',
 });

@@ -106,7 +106,11 @@ const calender: React.FC<CalendarProps> = (props) => {
 			if (current.isBetween(startDay, endDay)) return <i className={style.focus}>{date}</i>
 
 		}
-		return <i>{date}</i>
+		//鼠标移入样式
+		if (current.isBetween(props.validRange?.[0] || dayNow, props.validRange?.[1] || dayNow)) {
+			return <i>{date}</i>
+		}
+		return <i className={style.disabled}>{date}</i>
 	}
 
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import { Image, Divider, Space, Row, Col } from 'antd'
 import { useLocation } from 'umi'
 import { PrimaryButton, HeartButton } from '@/components/Button'
@@ -11,10 +11,9 @@ import Bg from '@/components/Bg'
 interface DetailProps {
 
 }
+
 export default (props: DetailProps) => {
-	const screen = {
-		xs: 24, sm: 24, md: 24, lg: 24, xl: 20, xxl: 20
-	}
+	const BgMemo = useMemo(() => <Bg />, [])
 	const [blur, setBlur] = useState(0)
 	let startDay: Dayjs | null = null
 	let endDay: Dayjs | null = null
@@ -23,7 +22,7 @@ export default (props: DetailProps) => {
 	const validRange = [day, day.add(300, 'day')] as [Dayjs, Dayjs]
 	const location = useLocation()
 	console.log(location)
-	
+
 
 	/**
 	 * 获取日历组件选择的时间
@@ -44,11 +43,15 @@ export default (props: DetailProps) => {
 		if (!startDay) return
 		console.log(startDay, endDay)
 	}
-
+	//响应
+	const screen = {
+		xs: 24, sm: 24, md: 24, lg: 24, xl: 20, xxl: 20
+	}
+	//justify='space-between' style={{ marginBottom: '50px' }}
 
 	return (
 		<Col {...screen}>
-			<Bg />
+			{BgMemo}
 			<h1>title</h1>
 			<p className=''>亚洲，中国</p>
 			<div className={style.img}>
@@ -56,13 +59,18 @@ export default (props: DetailProps) => {
 				<Image style={{ borderRadius: '15px' }}
 					onError={() => { }}
 					width={'100%'}
-					height={400}
 					preview={false}
-					src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+					src="https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp"
 				/>
 			</div>
-			<Row justify='space-between' style={{ marginBottom: '50px' }}>
-				<Col span={13}>
+			<Row justify={'space-between'}>
+				<Col xs={{ span: 24, order: 2 }}
+					sm={{ span: 24, order: 2 }}
+					md={{ span: 24, order: 2 }}
+					lg={{ span: 13, order: 1 }}
+					xl={{ span: 13, order: 1 }}
+					xxl={{ span: 13, order: 1 }}>
+
 					<div className={style.space}>
 						<h2>
 							发布者{'xz'} :
@@ -70,6 +78,7 @@ export default (props: DetailProps) => {
 						<Image style={{ borderRadius: '50%' }}
 							onError={() => { }}
 							width={30}
+							height={30}
 							preview={false}
 							src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
 						/>
@@ -94,7 +103,15 @@ export default (props: DetailProps) => {
 					<Divider />
 					<Map style={{ height: '350px' }} />
 				</Col>
-				<Col className={style.leftBox} span={10} style={{ borderRadius: '15px', height: 'fit-content', overflow: 'auto' }}>
+
+
+				<Col className={style.calendarBox}
+					xs={{ span: 24, order: 1 }}
+					sm={{ span: 24, order: 1 }}
+					md={{ span: 24, order: 1 }}
+					lg={{ span: 10, order: 2 }}
+					xl={{ span: 10, order: 2 }}
+					xxl={{ span: 10, order: 2 }}>
 					<Space align='center'>
 						<h1 style={{ display: 'inline-block' }}>￥{100}</h1>
 						<span>night</span>

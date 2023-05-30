@@ -3,6 +3,10 @@
   width: 100%;
   display: block;
 }
+.calendar .disabled {
+  pointer-events: auto;
+  cursor: not-allowed;
+}
 .calendar .focus {
   color: white;
   background-color: rgba(239, 85, 30, 0.7);
