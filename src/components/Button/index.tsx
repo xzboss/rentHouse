@@ -14,7 +14,7 @@ interface btnStyle {
 const defaultStyle = {
 	display: 'block',
 	height: '1.875rem',
-	children: '确定'
+	children: '确 定'
 }
 /* 文本按钮 */
 export const TxtButton: React.FC<btnStyle> = (props) => {

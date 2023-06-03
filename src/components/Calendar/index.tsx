@@ -9,6 +9,7 @@ import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
 import dayLocaleData from 'dayjs/plugin/localeData'
 import dayjs from 'dayjs'
 import style from './index.less'
+import { dayIsSame } from '@/utils'
 //使用插件
 dayjs.extend(isBetween)
 dayjs.extend(isSameOrBefore)
@@ -16,16 +17,17 @@ dayjs.extend(isSameOrAfter)
 dayjs.extend(dayLocaleData)
 
 interface CalendarProps {
-	getDate?: (startDay: Dayjs, endDate: Dayjs) => void,
-	validRange?: [Dayjs, Dayjs]
+	getDate?: (startDay: Dayjs, endDate: Dayjs) => void
+	validRange?: [Dayjs, Dayjs]//允许选择范围
+	dateRange?: [Dayjs, Dayjs]//默认选中
 	style?: { [p: string]: any }
 	className?: string
 }
 const calender: React.FC<CalendarProps> = (props) => {
-
 	const dayNow = dayjs()
-	let startDay: Dayjs | null = dayNow
-	let endDay: Dayjs | null = dayNow
+	let startDay: Dayjs | null = props.dateRange?.[0] || dayNow
+	let endDay: Dayjs | null = props.dateRange?.[1] || dayNow
+
 	let mode = 'month'
 	//panel切换是否由点击panel改变,因为由谁改变都会执行onSelect<-onChange<-onPanelChange
 	let panelChangeByPanel = false
@@ -36,6 +38,7 @@ const calender: React.FC<CalendarProps> = (props) => {
 	const onPanelChange = (day: Dayjs, type: string) => {
 		mode = type
 	}
+
 
 	/** 2
 	 * @callback
@@ -78,11 +81,12 @@ const calender: React.FC<CalendarProps> = (props) => {
 			props.getDate?.(startDay!, endDay!)
 		}
 	}
+
+
 	/**
 	 * 自定义单元格内容
 	 */
 	const fullCellRender = (current: Dayjs) => {
-
 		//由于antd组件自动传入的dayjs实例无法使用插件，所以克隆一下
 		current = dayjs(current)
 		let date = current.get('date')
@@ -91,16 +95,19 @@ const calender: React.FC<CalendarProps> = (props) => {
 		}
 		if (mode === 'year') date = current.month() + 1
 		//如果只有一天被选中
-		if (current.isSame(startDay) && (endDay === null || startDay?.isSame(endDay)))
+		if (dayIsSame(current, startDay) && (endDay === null || dayIsSame(endDay, startDay)))
 			return <i className={style.only}>{date}</i>
 
 		//如果两天被选中
 		if (startDay && endDay) {
+			//isSame有bug,改用current.format()===startDay.format()
+			//console.log(current.format('YYYY-MM-DD') ===startDay.format('YYYY-MM-DD'))
+
 			//第一天样式
-			if (current.isSame(startDay)) return <i className={style.first}>{date}</i>
+			if (dayIsSame(current, startDay)) return <i className={style.first}>{date}</i>
 
 			//最后天样式
-			if (current.isSame(endDay)) return <i className={style.last}>{date}</i>
+			if (dayIsSame(current, endDay)) return <i className={style.last}>{date}</i>
 
 			//中间日期样式
 			if (current.isBetween(startDay, endDay)) return <i className={style.focus}>{date}</i>
@@ -119,7 +126,7 @@ const calender: React.FC<CalendarProps> = (props) => {
 			style={{ ...props.style ?? null }}
 			fullscreen={false}
 			className={`${style.calendar} ${props.className}`}
-			validRange={props.validRange || [dayNow, dayNow.add(99, 'day')]}
+			validRange={props.validRange || [dayNow.subtract(10, 'y'), dayNow.add(10, 'y')]}
 			onChange={onChange}
 			onSelect={onSelect}
 			fullCellRender={fullCellRender}
@@ -129,47 +136,67 @@ const calender: React.FC<CalendarProps> = (props) => {
 				const startDate = startDay?.format(format) || dayNow.format(format)
 				const endDate = endDay?.format(format) || startDate
 				const validRange = props.validRange ?? [dayNow, dayNow]
-				const yDiff = validRange[1].diff(validRange[0], 'y') + 1
-				const mDiff = validRange[1].diff(validRange[0], 'M') + 2
+				const yDiff = validRange[1].diff(validRange[0], 'y')
+				const mDiff = validRange[1].diff(validRange[0], 'M')
 				const startYear = validRange[0].year()
 				const startMonth = validRange[0].month() + 1
-				let currentYear = startYear
-				let currentMonth = startMonth
+				let [currentYear, setCurrentYear] = useState(startYear)
+				let [currentMonth, setCurrentMonth] = useState(startMonth)
 
-				//得到年所有选项
-				let yOptions = []
-				for (let i = 0; i < yDiff; i++) {
-					yOptions.push(
-						<Select.Option key={startYear + i}>{startYear + i + ' 年'}</Select.Option>
+
+				//所有年各自月份选项集合
+				let options: { [year: string]: Array<any> } = {}
+
+				//当前年的所有月份
+				options[startYear] = []
+				for (let j = startMonth; j <= 12; j++) {
+					options[startYear].push(
+						<Select.Option key={j}>{j + ' 月'}</Select.Option>
 					)
 				}
-
-				//得到月所有选项
-				let mOptions = []
-				for (let i = 0; i < mDiff + 2; i++) {
-					if (i >= 12) break
-					if (startYear + i > 12) {
-						mOptions.unshift(
-							<Select.Option key={12 - i}>{12 - i + ' 月'}</Select.Option>
+				//不足一年超出月份
+				let mOver = startMonth + (mDiff % 12) - 12
+				if (mOver > 0) {
+					options[startYear + yDiff + 1] = []
+					//结尾年的月份
+					for (let i = 1; i <= mOver; i++) {
+						options[startYear + yDiff + 1].push(
+							<Select.Option key={i}>{i + ' 月'}</Select.Option>
 						)
-						continue
 					}
-					mOptions.push(
-						<Select.Option key={startMonth + i}>{startMonth + i + ' 月'}</Select.Option>
-					)
 				}
+				//中间年都有12个月份
+				if (yDiff > 1) {
+					for (let i = 1; i < yDiff; i++) {
+						options[startYear + i] = []
+						for (let j = 1; j <= 12; j++) {
+							options[startYear + i].push(
+								<Select.Option key={j}>{j + ' 月'}</Select.Option>
+							)
+						}
+					}
+				}
+				//所有年选项集合
+				const yOptions = Object.keys(options).map((year) => {
+					return <Select.Option key={year}>{year + ' 月'}</Select.Option>
+				})
 
 				//跳转
 				const to = (e: any, type: string) => {
 					if (type === 'y') {
 						currentYear = e
+						currentMonth = options[currentYear][0].key
 					} else {
 						currentMonth = e
 					}
 					//确定是由panel触发
 					panelChangeByPanel = true
-					onChange(dayjs(new Date(currentYear, currentMonth, 15)))
+					onChange(dayjs(new Date(currentYear, currentMonth - 1, 15)))
+					//重新加载header
+					setCurrentMonth(currentMonth)
+					setCurrentYear(currentYear)
 				}
+
 				return (
 					<div>
 						<div className={style.header}>
@@ -178,14 +205,14 @@ const calender: React.FC<CalendarProps> = (props) => {
 							<span>{endDate}</span>
 						</div>
 						<div className={style.selectBox}>
-							<Select defaultValue={startYear + ' 年'}
+							<Select value={currentYear + ' 年'}
 								style={{ width: 100 }}
 								onChange={(e) => to(e, 'y')}
 							>{yOptions}</Select>
 							<span>-</span>
-							<Select defaultValue={startMonth + ' 月'}
+							<Select value={currentMonth + ' 月'}
 								style={{ width: 100 }}
-								onChange={(e) => to(e, 'm')}>{mOptions}</Select>
+								onChange={(e) => to(e, 'm')}>{options[currentYear]}</Select>
 						</div>
 					</div>
 				)

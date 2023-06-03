@@ -19,5 +19,18 @@ export default function staticModel() {
 		{ className: 'icon-huaxue', type: '滑雪' },
 		{ className: 'icon-pool', type: '游泳' }
 	]
-	return { icons }
+	//所有可存在房子的国家
+	const regions = [
+		{
+			region: '亚洲',
+			country: '中国',
+			latlng: [60, 19.9]
+		},
+		{
+			region: '亚洲',
+			country: '日本',
+			latlng: [50, 13.9]
+		}
+	]
+	return { icons, regions }
 }

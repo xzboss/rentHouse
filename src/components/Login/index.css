@@ -1,5 +1,6 @@
 .des {
   text-align: right;
+  height: 20px;
 }
 .des b {
   cursor: pointer;
@@ -9,9 +10,6 @@
 .des b:hover {
   opacity: 1;
   transition: all 0.1s;
-  transform: scale(1.5);
-}
-.des .a:hover {
   display: inline-block;
   transform: scale(1.1);
 }

@@ -52,7 +52,8 @@ export default (props: DetailProps) => {
 	return (
 		<Col {...screen}>
 			{BgMemo}
-			<h1>title</h1>
+			<br />
+			<h1>titlwwwwwe</h1>
 			<p className=''>亚洲，中国</p>
 			<div className={style.img}>
 				<HeartButton onClick={() => { setBlur(blur ? 0 : 1) }} blur={blur} style={{ right: '5%', top: '5%' }} />

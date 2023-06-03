@@ -1,0 +1,38 @@
+.box {
+	* {
+		font-size: 1.1rem;
+		margin: 0;
+		padding: 0;
+	}
+
+	P {
+		font-size: .9rem;
+	}
+}
+
+.count {
+	font-size: 1.5rem;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	.svg {
+		cursor: pointer;
+		opacity: .6;
+		transition: .2s;
+		/* 火狐 */
+		-moz-user-select: none;
+		/* Safari 和 欧朋 */
+		-webkit-user-select: none;
+		/* IE10+ and Edge */
+		-ms-user-select: none;
+		/* Standard syntax 标准语法(谷歌) */
+		user-select: none;
+
+		&:hover {
+			opacity: 1;
+			transform: scale(1.1);
+		}
+	}
+}

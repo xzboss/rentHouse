@@ -1,6 +1,6 @@
 import React from 'react'
 import style from '../layouts/index'
-
+import type { Dayjs } from 'dayjs'
 /**
  * 
  * @param start >=起始
@@ -15,7 +15,7 @@ export const getRandom = (start: number, end: number, isFloat: boolean = false):
 }
 
 export const getColor = (): string => {
-	
+
 	const colorList = [
 		'#14d05b',
 		'#79E0EE',
@@ -35,5 +35,15 @@ export const getColor = (): string => {
 		'#f47c7c',
 	]
 	return colorList[getRandom(0, colorList.length)]
-	
+
+}
+/**
+ * 比较两个日期是否相同，因为在使用day.isSame()时有bug
+ * @param day 
+ * @param day2 
+ * @returns 
+ */
+export const dayIsSame = (day: Dayjs | null, day2: Dayjs | null): boolean => {
+	if (!day && !day2) return false
+	return day!.format('YYYY-MM-DD') === day2!.format('YYYY-MM-DD')
 }

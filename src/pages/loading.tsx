@@ -2,6 +2,6 @@ import React from 'react'
 
 export default (props: any) => {
 	return (
-		<div>loading</div>
+		<h1>loading</h1>
 	)
 }

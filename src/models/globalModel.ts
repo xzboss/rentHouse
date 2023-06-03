@@ -10,7 +10,8 @@ export default function userModel() {
 			footer: null,
 			closable: true,
 			icon: null,
-			width: '50%'
+			width: '50vmax',
+			centered:true
 		})
 	}
 	return { openModal, contextHolder }
