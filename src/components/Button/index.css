@@ -45,6 +45,7 @@
   background-image: linear-gradient(to right, #14d05b 0%, #b4eebb 51%, #5ff085 100%);
 }
 .heart {
+  cursor: pointer;
   box-sizing: border-box;
   width: 20px;
   height: 20px;

@@ -25,26 +25,38 @@
 	}
 
 	.imgBox {
-		width: 100%;
+		width: 200px;
+		height: 200px;
 		border-radius: 15px;
 		display: flex;
 		margin: 0;
 		padding: 0;
 		overflow: hidden;
 
-		.img {
-			transition: .2s;
+		.imgAnt {
+			margin: 2.5% auto;
+			padding: 0;
+			width: 95%;
+			overflow: hidden;
+			height: 95%;
 			border-radius: 10px;
+			transition: .2s;
+
+			.img {
+				width: 100%;
+				border-radius: 10px;
+			}
 
 			&:hover {
 				transform: scale(1.1);
 			}
 		}
+
+
 	}
 
 
 	.heart {
-
 		transition: .2s;
 		width: 15px;
 		height: 15px;

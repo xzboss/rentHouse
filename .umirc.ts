@@ -9,11 +9,16 @@ export default defineConfig({
   antd: {},
   model: {},
   /* initialState: {}, */
+  proxy: {
+    '/proxy': {
+      'target': 'http://127.0.0.1:3030/',
+      'changeOrigin': true,
+      'pathRewrite': { '^/proxy': '' }
+    }
+  },
   routes: [
-    {
-      path: '/', redirect: '/沙滩'
-    },
-    { path: "/:type", component: "index", },
+    { path: '/', redirect: "/all" },
+    { path: "/:type", component: "index" },
     {
       path: "/myFavorites", component: "myFavorites", wrappers: [
         '@/wrappers/auth',

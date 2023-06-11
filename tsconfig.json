@@ -2,6 +2,8 @@
   "extends": "./src/.umi/tsconfig.json",
   "include": [
     "src",
+    "axios.d.ts",
     ".d.ts"
+    
   ]
 }

@@ -22,18 +22,28 @@
   padding: 0;
 }
 .house-item .imgBox {
-  width: 100%;
+  width: 200px;
+  height: 200px;
   border-radius: 15px;
   display: flex;
   margin: 0;
   padding: 0;
   overflow: hidden;
 }
-.house-item .imgBox .img {
+.house-item .imgBox .imgAnt {
+  margin: 2.5% auto;
+  padding: 0;
+  width: 95%;
+  overflow: hidden;
+  height: 95%;
+  border-radius: 10px;
   transition: 0.2s;
+}
+.house-item .imgBox .imgAnt .img {
+  width: 100%;
   border-radius: 10px;
 }
-.house-item .imgBox .img:hover {
+.house-item .imgBox .imgAnt:hover {
   transform: scale(1.1);
 }
 .house-item .heart {

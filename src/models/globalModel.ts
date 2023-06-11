@@ -11,9 +11,12 @@ export default function userModel() {
 			closable: true,
 			icon: null,
 			width: '50vmax',
-			centered:true
+			centered: true
 		})
 	}
-	return { openModal, contextHolder }
+	const closeModal = () => {
+		Modal.destroyAll()
+	}
+	return { openModal, contextHolder, closeModal }
 }
 

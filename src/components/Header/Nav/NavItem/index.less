@@ -1,4 +1,5 @@
 .NavItem {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
@@ -7,9 +8,23 @@
 	flex: 1 0 100px;
 	height: 50px;
 	cursor: pointer;
-	transition: .1s;
 
-	&:hover {
-		transform: scale(1.05);
+	.line {
+		position: absolute;
+		bottom: -5px;
+		transition: .4s;
+		margin: 0;
+		padding: 0;
+		height: 1px;
+		background-color: var(--color-green);
+		animation: lineMove .2s forwards;
+	}
+}
+@keyframes lineMove{
+	from{
+		width: 0;
+	}
+	to{
+		width: 80%;
 	}
 }

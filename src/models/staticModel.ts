@@ -1,5 +1,4 @@
-/* 一些全局静态数据
-不知道怎么回事，用不了initialState全局状态 */
+/* 一些全局静态数据,默认数据 */
 import React from 'react'
 interface NavItemType {
 	className: string

@@ -8,21 +8,37 @@ import Map from '@/components/Map'
 import Calender from '@/components/Calendar'
 import dayjs, { Dayjs } from 'dayjs'
 import Bg from '@/components/Bg'
+import houseDefault from '@/assets/houseDefault.png'
+import { listingProps } from '@/types'
 interface DetailProps {
-
 }
 
-export default (props: DetailProps) => {
+const FC: React.FC<DetailProps> = (props) => {
+	//响应
+	const screen = {
+		xs: 24, sm: 24, md: 24, lg: 24, xl: 20, xxl: 20
+	}
 	const BgMemo = useMemo(() => <Bg />, [])
 	const [blur, setBlur] = useState(0)
-	let startDay: Dayjs | null = null
-	let endDay: Dayjs | null = null
-	const day = dayjs()
-	//test
-	const validRange = [day, day.add(300, 'day')] as [Dayjs, Dayjs]
-	const location = useLocation()
+	const location = useLocation() as any
 	console.log(location)
 
+	const {
+		validRange,
+		title,
+		category,
+		imageSrc,
+		latlng,
+		price,
+		roomCount,
+		bathRoomCount,
+		guestCount,
+		description,
+		locationValue } = location.state.listing
+	let [startDay, setStartDay] = useState<Dayjs | null>()
+	let [endDay, setEndDay] = useState<Dayjs | null>()
+	const day = dayjs()
+	const _validRange = [dayjs(validRange?.[0]), dayjs(validRange?.[1])] as [Dayjs, Dayjs]
 
 	/**
 	 * 获取日历组件选择的时间
@@ -30,7 +46,9 @@ export default (props: DetailProps) => {
 	 * @param e 结束时间
 	 */
 	const getDate = (s: Dayjs, e: Dayjs) => {
-		[startDay, endDay] = [s, e]
+		//[startDay, endDay] = [s, e]
+		setStartDay(s)
+		setEndDay(e)
 	}
 
 
@@ -43,25 +61,26 @@ export default (props: DetailProps) => {
 		if (!startDay) return
 		console.log(startDay, endDay)
 	}
-	//响应
-	const screen = {
-		xs: 24, sm: 24, md: 24, lg: 24, xl: 20, xxl: 20
-	}
-	//justify='space-between' style={{ marginBottom: '50px' }}
 
+
+	//缓存日历
+	const CalendarMemo = useMemo(() => {
+		return <Calender validRange={_validRange} getDate={getDate} />
+	}, [validRange])
 	return (
 		<Col {...screen}>
 			{BgMemo}
 			<br />
-			<h1>titlwwwwwe</h1>
-			<p className=''>亚洲，中国</p>
+			<h1>{title}</h1>
+			<p className=''>{locationValue}</p>
 			<div className={style.img}>
 				<HeartButton onClick={() => { setBlur(blur ? 0 : 1) }} blur={blur} style={{ right: '5%', top: '5%' }} />
 				<Image style={{ borderRadius: '15px' }}
 					onError={() => { }}
 					width={'100%'}
 					preview={false}
-					src="https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp"
+					fallback={houseDefault}
+					src={imageSrc}
 				/>
 			</div>
 			<Row justify={'space-between'}>
@@ -86,23 +105,23 @@ export default (props: DetailProps) => {
 					</div>
 					<br />
 					<Space >
-						<span>{1} 人住宿</span>
-						<span>{1} 间卧室</span>
-						<span>{1} 间浴室</span>
+						<span>{guestCount} guests</span>
+						<span>{roomCount} rooms</span>
+						<span>{bathRoomCount} bathrooms</span>
 					</Space>
 					<Divider />
 					<Space>
 						<span className='iconfont icon-Desert' style={{ fontSize: '2.5vw' }}></span>
 						<div style={{ display: 'inline-block' }}>
-							<b>类型</b>
+							<b>{category}</b>
 							<br />
-							<span>descript ssssssss</span>
+							<span>this property is {category}</span>
 						</div>
 					</Space>
 					<Divider />
-					<p>描述!!!!!!</p>
+					<p>{description}</p>
 					<Divider />
-					<Map style={{ height: '350px' }} />
+					<Map style={{ height: '350px' }} position={latlng} />
 				</Col>
 
 
@@ -118,16 +137,18 @@ export default (props: DetailProps) => {
 						<span>night</span>
 					</Space>
 					<Divider />
-					<Calender validRange={validRange} getDate={getDate} />
+					{CalendarMemo}
 					<Divider />
 					<PrimaryButton style={{ height: '2.5rem' }} onClick={reserve}>Reserve</PrimaryButton>
 					<Divider />
 					<div className={style.price}>
 						<h2>Total</h2>
-						<h2>￥ 100</h2>
+						<h2>￥ {startDay ? (endDay as Dayjs).diff(startDay, 'd') * price : price}</h2>
 					</div>
 				</Col>
 			</Row>
 		</Col>
 	)
 }
+
+export default FC

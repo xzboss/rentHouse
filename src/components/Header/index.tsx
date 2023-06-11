@@ -82,7 +82,9 @@ function Menu() {
 
 export default function Header() {
 	const navigate = useNavigate()
+	const { dataDefault, setData } = useModel('searchModel')
 	const handleClick = () => {
+		setData(dataDefault)
 		navigate('/')
 	}
 	//房屋类型
@@ -102,7 +104,7 @@ export default function Header() {
 	}
 	return (
 		<div className='head'>
-			<Row style={{paddingBottom:10}} justify='space-between' align='middle' gutter={20} wrap={false}>
+			<Row style={{ paddingBottom: 10 }} justify='space-between' align='middle' gutter={20} wrap={false}>
 				<Col {...screen}>
 					<img src={Logo} alt="logo" onClick={handleClick} />
 				</Col>

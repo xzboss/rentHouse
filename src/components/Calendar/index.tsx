@@ -60,7 +60,6 @@ const calender: React.FC<CalendarProps> = (props) => {
 			//判断前后
 			if (startDay.isAfter(day)) {
 				[endDay, startDay] = [startDay, day]
-
 			} else {
 				endDay = day
 			}
@@ -139,7 +138,9 @@ const calender: React.FC<CalendarProps> = (props) => {
 				const yDiff = validRange[1].diff(validRange[0], 'y')
 				const mDiff = validRange[1].diff(validRange[0], 'M')
 				const startYear = validRange[0].year()
+				const endYear = validRange[1].year()
 				const startMonth = validRange[0].month() + 1
+				const endMonth = startYear === endYear ? validRange[1].month() + 1 : 12
 				let [currentYear, setCurrentYear] = useState(startYear)
 				let [currentMonth, setCurrentMonth] = useState(startMonth)
 
@@ -149,7 +150,7 @@ const calender: React.FC<CalendarProps> = (props) => {
 
 				//当前年的所有月份
 				options[startYear] = []
-				for (let j = startMonth; j <= 12; j++) {
+				for (let j = startMonth; j <= endMonth; j++) {
 					options[startYear].push(
 						<Select.Option key={j}>{j + ' 月'}</Select.Option>
 					)

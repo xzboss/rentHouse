@@ -3,20 +3,18 @@ import { history } from 'umi'
 import { Image } from 'antd'
 import style from './index.less'
 import { DelButton, HeartButton } from '../../Button'
-//按钮props
-interface btnStyle {
-	display?: string
-	height?: string
-	children?: React.ReactNode
-}
+import houseDefault from '@/assets/houseDefault.png'
+import { listingProps } from '@/types'
 //每个信息卡片的props
 interface HouseItemProps {
-	btnStyle?: btnStyle
+	listing?: listingProps
+	btnStyle?: any
 	display?: string
 	height?: string
 	children?: React.ReactNode
 }
-const App: React.FC<HouseItemProps> = (props) => {
+const App: React.FC<HouseItemProps> = ({ btnStyle, listing }) => {
+
 	//改变爱心按钮样式
 	const [blur, setBlur] = useState(false)
 
@@ -25,37 +23,33 @@ const App: React.FC<HouseItemProps> = (props) => {
 	 * @callback
 	 */
 	const handleClick = () => {
-		console.log('click')
-		history.push('/detail', {
-			state: {
-				date: 'hello'
-			}
-		})
+		history.push('/detail', { listing })
 	}
-	
-	const clickHeart=(e:any)=>{
+
+	const clickHeart = (e: any) => {
 		setBlur(!blur);
 		e.stopPropagation();
 	}
 	return (
 		<div className={style['house-item']} onClick={handleClick}>
 			<div className={style.imgBox}>
-			<HeartButton blur={blur} onClick={clickHeart} className={style.heart} />
-			<Image className={style.img}
-				onError={() => { }}
-				width={200}
-				preview={false}
-				src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-			/>
+				<HeartButton blur={blur} onClick={clickHeart} className={style.heart} />
+				<Image className={style.img}
+					rootClassName={style.imgAnt}
+					onError={() => { }}
+					fallback={houseDefault}
+					preview={false}
+					src={listing?.imageSrc}
+				/>
 			</div>
-			
+
 			<div>
-				<b>亚洲，中国</b>
-				<p>沙滩</p>
+				<b>{listing?.title}</b>
+				<p>{listing?.category}</p>
 				<div>
-					<b className={style.price}>￥1000</b>  night
+					<b className={style.price}>￥{listing?.price} night</b>
 				</div>
-				<DelButton style={{ ...props.btnStyle }} onClick={handleClick}>删除</DelButton>
+				<DelButton style={{ ...btnStyle }} onClick={handleClick}>删除</DelButton>
 			</div>
 		</div>
 	)

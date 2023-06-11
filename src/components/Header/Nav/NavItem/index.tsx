@@ -1,5 +1,5 @@
 import React from 'react'
-import { history } from 'umi'
+import { history, useParams, useModel } from 'umi'
 import '@/assets/icon/iconfont.css'
 import style from './index.less'
 interface _props {
@@ -9,6 +9,8 @@ interface _props {
 	}
 }
 export default (props: _props) => {
+	const { type } = useParams()
+	const { data, setData } = useModel('searchModel')
 	const handleClick = () => {
 		history.push(`/${props.data.type}`)
 	}
@@ -16,6 +18,7 @@ export default (props: _props) => {
 		<div className={style.NavItem} onClick={handleClick}>
 			<i className={'iconfont ' + props.data.className}></i>
 			<span>{props.data.type}</span>
+			{type === props.data.type ? <i className={style.line}></i> : undefined}
 		</div>
 
 	)
