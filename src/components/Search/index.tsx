@@ -9,6 +9,7 @@ import Calendar from '@/components/Calendar'
 import { DelButton, PrimaryButton } from '../Button'
 import Counter from '@/components/Counter'
 import style from './index.less'
+import { ALL } from '@/constant'
 
 interface ChildrenProps {
 	step: number,
@@ -43,7 +44,7 @@ const P1: React.FC<ChildrenProps> = (props) => {
 		//console.log('chang', option)
 		setPosition(option.latlng)
 		setDes(option.label)
-		setData({ ...data, title: option.label })
+		setData({ ...data, locationValue: option.label })
 	}
 	const onSearch = () => {
 		//console.log('select')
@@ -111,7 +112,7 @@ const P3: React.FC<ChildrenProps> = (props) => {
 
 	//search
 	const search = () => {
-		history.push('/' + type)
+		history.push('/' + (type ?? ALL))
 		closeModal()
 	}
 	return (

@@ -15,7 +15,7 @@ export default (props: _props) => {
 		history.push(`/${props.data.type}`)
 	}
 	return (
-		<div className={style.NavItem} onClick={handleClick}>
+		<div className={style.NavItem + ' ' + (type === props.data.type ? style.active : '')} onClick={handleClick}>
 			<i className={'iconfont ' + props.data.className}></i>
 			<span>{props.data.type}</span>
 			{type === props.data.type ? <i className={style.line}></i> : undefined}

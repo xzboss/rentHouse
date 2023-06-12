@@ -3,6 +3,7 @@ import { useState, useCallback } from 'react'
 import dayjs from 'dayjs'
 
 interface searchProps {
+	locationValue?: string
 	title?: string
 	dateRange?: Date[]
 	category?: string

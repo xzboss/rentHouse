@@ -8,7 +8,7 @@ import style from './index.less'
 //无需翻墙的google瓦片地图
 const _2D = 'https://gac-geo.googlecnapps.cn/maps/vt?lyrs=m&x={x}&y={y}&z={z}'
 const _3D = 'https://gac-geo.googlecnapps.cn/maps/vt?lyrs=s,m&gl=CN&x={x}&y={y}&z={z}'
-const attribution = '&copy; <a>hello</a> contributors'
+const attribution = '&copy; <a>祝您旅途愉快</a> contributors'
 interface mapProps {
 	position?: [number | string, number | string],
 	style?: Record<string, unknown>,

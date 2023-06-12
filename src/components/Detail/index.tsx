@@ -21,7 +21,6 @@ const FC: React.FC<DetailProps> = (props) => {
 	const BgMemo = useMemo(() => <Bg />, [])
 	const [blur, setBlur] = useState(0)
 	const location = useLocation() as any
-	console.log(location)
 
 	const {
 		validRange,

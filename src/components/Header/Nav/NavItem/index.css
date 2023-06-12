@@ -7,6 +7,10 @@
   flex: 1 0 100px;
   height: 50px;
   cursor: pointer;
+  color: rgba(0, 0, 0, 0.5);
+}
+.NavItem:hover {
+  color: #000000;
 }
 .NavItem .line {
   position: absolute;
@@ -17,6 +21,9 @@
   height: 1px;
   background-color: var(--color-green);
   animation: lineMove 0.2s forwards;
+}
+.active {
+  color: #000000 !important;
 }
 @keyframes lineMove {
   from {
