@@ -11,7 +11,7 @@ export default defineConfig({
   /* initialState: {}, */
   proxy: {
     '/proxy': {
-      'target': 'http://127.0.0.1:6000/',
+      'target': 'http://127.0.0.1:9999/',
       'changeOrigin': true,
       'pathRewrite': { '^/proxy': '' }
     }

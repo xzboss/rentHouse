@@ -25,7 +25,6 @@ export default (props: any) => {
 		if (1) {
 			//改变登录状态
 			setIsLogin(true)
-
 		}
 
 	}
