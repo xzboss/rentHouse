@@ -7,9 +7,12 @@
 		"latlng",
 		"luyingcamping",
 		"navs",
+		"PROXYURL",
 		"suoshuxiangcun",
+		"verifyed",
 		"vmax",
 		"vmin",
-		"xianxinghaidao"
+		"xianxinghaidao",
+		"zhengque"
 	]
 }

@@ -10,7 +10,7 @@ export default function userModel() {
 			footer: null,
 			closable: true,
 			icon: null,
-			width: '50vmax',
+			width: '80vmin',
 			centered: true
 		})
 	}

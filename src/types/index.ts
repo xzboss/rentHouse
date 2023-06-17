@@ -16,3 +16,22 @@ export interface listingProps {
 	validRange?: Date[]
 	locationValue?: string
 }
+export interface userProps {
+	name?: string
+	email?: string
+	password?: string
+}
+export interface userDetailProps {
+	_id?: string
+	__v?: any
+	name?: string
+	email?: string
+	emailVerify?: Date
+	image?: string
+	createdAt?: Date
+	updateAt?: Date
+	favoriteIds?: string[]
+	listings?: string[]
+	accounts?: string[]
+	reservations?: string[]
+}

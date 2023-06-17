@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
-import { history } from 'umi'
+import React, { useState, useCallback } from 'react'
+import { history, useModel } from 'umi'
 import { Image } from 'antd'
 import style from './index.less'
 import { DelButton, HeartButton } from '../../Button'
 import houseDefault from '@/assets/houseDefault.png'
-import { listingProps } from '@/types'
-//每个信息卡片的props
+import { listingProps, userDetailProps } from '@/types'
+import { getDefaultHeart } from '@/utils'
+
 interface HouseItemProps {
 	listing?: listingProps
 	btnStyle?: any
@@ -14,21 +15,23 @@ interface HouseItemProps {
 	children?: React.ReactNode
 }
 const App: React.FC<HouseItemProps> = ({ btnStyle, listing }) => {
+	const { userDetail } = useModel('userModel')
 
-	//改变爱心按钮样式
-	const [blur, setBlur] = useState(false)
+	//heart blur
+	const [blur, setBlur] = useState(getDefaultHeart(userDetail, listing))
 
 	/**
-	 * 去详情
+	 * to /detail
 	 * @callback
 	 */
 	const handleClick = () => {
 		history.push('/detail', { listing })
 	}
 
+
 	const clickHeart = (e: any) => {
 		setBlur(!blur);
-		e.stopPropagation();
+		e.stopPropagation()
 	}
 	return (
 		<div className={style['house-item']} onClick={handleClick}>

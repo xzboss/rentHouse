@@ -9,7 +9,7 @@ import Calendar from '@/components/Calendar'
 import { DelButton, PrimaryButton } from '../Button'
 import Counter from '@/components/Counter'
 import style from './index.less'
-import { ALL } from '@/constant'
+import { ALL } from '@/constants'
 
 interface ChildrenProps {
 	step: number,

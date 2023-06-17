@@ -1,6 +1,7 @@
 import React from 'react'
 import style from '../layouts/index'
 import type { Dayjs } from 'dayjs'
+import { MehFilled } from '@ant-design/icons'
 
 /**
  * 
@@ -49,4 +50,61 @@ export const getColor = (): string => {
 export const dayIsSame = (day: Dayjs | null, day2: Dayjs | null): boolean => {
 	if (!day && !day2) return false
 	return day!.format('YYYY-MM-DD') === day2!.format('YYYY-MM-DD')
+}
+
+/**
+ * 判断对象有字段为空
+ * @param obj 
+ * @returns 
+ */
+export const objectEmptyOne = (obj: Record<string, any>) => {
+	return Object.values(obj).some(value => value === null || value === '');
+}
+
+/**
+ * 设置token
+ * @param token 
+ */
+export const setToken = (token: string) => {
+	localStorage.setItem('xz_token', 'Bearer ' + token)
+}
+/**
+ * 获取token
+ * @param token 
+ */
+export const getToken = (token: string) => {
+	localStorage.getItem('xz_token')
+}
+
+/**
+ * heart default blur
+ * @param userDetail 
+ * @param listing 
+ * @returns 
+ */
+export const getDefaultHeart = (userDetail: any, listing: any) => {
+	if (!userDetail) return false
+	const { favoriteIds } = userDetail
+	return favoriteIds?.includes(listing!._id as string)
+}
+
+export const debounce = (fn: Function, delay: number) => {
+	let timer: any = null
+	return function () {
+		clearTimeout(timer)
+		timer = setTimeout(() => {
+			fn.apply(undefined, arguments)
+		}, delay)
+	}
+}
+
+export const throttle = (fn: Function, delay: number) => {
+	let now = new Date().getTime()
+	return function () {
+		const curr = new Date().getTime()
+		if (curr - now >= delay) {
+			fn.apply(undefined, arguments)
+			now = curr
+		}
+	}
 }

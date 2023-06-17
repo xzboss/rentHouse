@@ -1,3 +1,7 @@
+:root {
+  --color-green: #14d05b;
+  --color-red: #ef551e;
+}
 * {
   /* border: 1px solid black; */
   padding: 0;
@@ -20,6 +24,9 @@
   width: 100%;
 }
 .btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   margin: 10px 0;
   text-align: center;
@@ -31,12 +38,20 @@
   border-radius: 10px;
   border: transparent;
   cursor: pointer;
+  letter-spacing: 0.2rem;
 }
 .btn:hover {
   background-position: right center;
   /* change the direction of the change here */
   color: #fff;
   text-decoration: none;
+}
+.btn:disabled {
+  opacity: 0.2;
+  cursor: no-drop;
+}
+.btn:disabled:hover {
+  background-position: left center;
 }
 .del {
   background-image: linear-gradient(to right, #ef551e 0%, #fdb394 51%, #ef551e 100%);

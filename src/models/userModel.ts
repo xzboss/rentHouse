@@ -2,6 +2,7 @@
 import React from 'react'
 import { useState, useCallback, useEffect } from 'react'
 import { verifyToken } from '@/service/api'
+import { CODE } from '@/constants'
 interface userDetailProps {
 	name?: string
 	email?: string
@@ -18,17 +19,19 @@ interface userDetailProps {
 export default function userModel() {
 	const [isLogin, setIsLogin] = useState(false)
 	const [userDetail, setUserDetail] = useState<userDetailProps>()
+	//verify token
 	useEffect(() => {
 		(async () => {
 			const haveToken = !!localStorage.getItem('xz_token')
 			if (!haveToken) return
 			const res = await verifyToken()
 			console.log(res)
-			if (res.code !== 401) {
-				setUserDetail(res)
+			if (res.code === CODE.UNAUTHENTICATED) return
+			if (res.code === CODE.SUCCESS) {
+				setUserDetail(res.data)
 				setIsLogin(true)
 			}
 		})()
 	}, [])
-	return { isLogin, setIsLogin, userDetail }
+	return { isLogin, setIsLogin, userDetail, setUserDetail }
 }

@@ -1,8 +1,9 @@
 @font-face {
-  font-family: "iconfont"; /* Project id 4073515 */
-  src: url('iconfont.woff2?t=1684847647658') format('woff2'),
-       url('iconfont.woff?t=1684847647658') format('woff'),
-       url('iconfont.ttf?t=1684847647658') format('truetype');
+  font-family: "iconfont";
+  /* Project id 4073515 */
+  src: url('iconfont.woff2?t=1686837438840') format('woff2'),
+    url('iconfont.woff?t=1686837438840') format('woff'),
+    url('iconfont.ttf?t=1686837438840') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +12,16 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-fork:before {
+  content: "\e61b";
+  color: var(--color-red);
+}
+
+.icon-zhengque1:before {
+  color: var(--color-green);
+  content: "\e605";
 }
 
 .icon-luyingcamping1:before {
@@ -52,4 +63,3 @@
 .icon-pool:before {
   content: "\e61e";
 }
-

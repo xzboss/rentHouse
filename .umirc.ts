@@ -1,5 +1,5 @@
 import { defineConfig } from "umi";
-
+import { PROXYURL } from './src/constants'
 export default defineConfig({
   plugins: [
     '@umijs/plugins/dist/antd',
@@ -11,7 +11,7 @@ export default defineConfig({
   /* initialState: {}, */
   proxy: {
     '/proxy': {
-      'target': 'http://127.0.0.1:9999/',
+      'target': PROXYURL,
       'changeOrigin': true,
       'pathRewrite': { '^/proxy': '' }
     }

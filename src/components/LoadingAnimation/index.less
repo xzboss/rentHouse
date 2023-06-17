@@ -1,0 +1,19 @@
+.content {
+	width: 30px;
+	height: 30px;
+	border-style: solid;
+	border-width: 3px;
+	border-color: transparent transparent var(--color-red) transparent;
+	border-radius: 50%;
+	animation: loading 1s linear infinite;
+}
+
+@keyframes loading {
+	from {
+		transform: rotate(0deg);
+	}
+
+	to {
+		transform: rotate(360deg);
+	}
+}

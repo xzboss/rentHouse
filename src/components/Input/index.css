@@ -1,6 +1,6 @@
 .box {
+  margin-bottom: 30px;
   position: relative;
-  min-height: 4rem;
 }
 .box label {
   left: 6px;
@@ -13,7 +13,6 @@
   color: rgba(0, 0, 0, 0.5);
 }
 .box input {
-  position: absolute;
   width: 100%;
   outline-style: none;
   border-style: none;
@@ -42,4 +41,20 @@
   transform: scale(0.9);
   top: -14px;
   background-color: #ffffff;
+}
+.box span {
+  padding-left: 10px;
+  display: block;
+  color: var(--color-red);
+}
+.box i {
+  position: absolute;
+  right: 20px;
+  top: 15px;
+}
+.box .green {
+  color: var(--color-green);
+}
+.box .red {
+  color: var(--color-red);
 }

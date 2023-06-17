@@ -2,6 +2,7 @@ import React from 'react'
 import style from './index.less'
 //按钮props
 interface btnStyle {
+	disabled?: boolean
 	style?: {
 		[p: string]: any
 	}
@@ -12,7 +13,7 @@ interface btnStyle {
 }
 //默认按钮样式属性值
 const defaultStyle = {
-	display: 'block',
+	display: 'flex',
 	height: '1.875rem',
 	children: '确 定'
 }
@@ -26,14 +27,16 @@ export const TxtButton: React.FC<btnStyle> = (props) => {
 /* 删除按钮 */
 export const DelButton: React.FC<btnStyle> = (props) => {
 	return (
-		<button {...props} style={{ ...defaultStyle, ...props.style }}
+		<button {...props}
+			style={{ ...defaultStyle, ...props.style }}
 			className={style.btn + ' ' + style.del + ' ' + props.className}>{props.children || defaultStyle.children}</button>
 	)
 }
 /* 主要按钮 */
 export const PrimaryButton: React.FC<btnStyle> = (props) => {
 	return (
-		<button {...props} style={{ ...defaultStyle, ...props.style }}
+		<button {...props}
+			style={{ ...defaultStyle, ...props.style }}
 			className={style.btn + ' ' + style.primary + ' ' + props.className}>{props.children || defaultStyle.children}</button>
 	)
 }

@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react'
 import { Image, Divider, Space, Row, Col } from 'antd'
-import { useLocation } from 'umi'
+import { useLocation, useModel } from 'umi'
 import { PrimaryButton, HeartButton } from '@/components/Button'
 import '@/assets/icon/iconfont.css'
 import style from './index.less'
@@ -10,17 +10,20 @@ import dayjs, { Dayjs } from 'dayjs'
 import Bg from '@/components/Bg'
 import houseDefault from '@/assets/houseDefault.png'
 import { listingProps } from '@/types'
+import { getDefaultHeart } from '@/utils'
 interface DetailProps {
 }
 
 const FC: React.FC<DetailProps> = (props) => {
+	const { userDetail } = useModel('userModel')
 	//响应
 	const screen = {
 		xs: 24, sm: 24, md: 24, lg: 24, xl: 20, xxl: 20
 	}
-	const BgMemo = useMemo(() => <Bg />, [])
-	const [blur, setBlur] = useState(0)
 	const location = useLocation() as any
+	const BgMemo = useMemo(() => <Bg />, [])
+	const [blur, setBlur] = useState(getDefaultHeart(userDetail, location.state.listing))
+
 
 	const {
 		validRange,

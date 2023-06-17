@@ -1,8 +1,9 @@
+import { TIMEOUT, BASEURL } from '@/constants'
 //axios封装
 import axios from 'axios'
 const service = axios.create({
-	baseURL: '',
-	timeout: 5000,
+	baseURL: BASEURL,
+	timeout: TIMEOUT,
 })
 service.interceptors.request.use(
 	(config: any) => {

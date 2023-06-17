@@ -11,7 +11,6 @@ export default function HomePage() {
   //精确搜索条件
   let { data: searchQuery } = useModel('searchModel')
   useEffect(() => {
-
     if (params.type === 'all') {
       ((async () => {
         const res = await getAllListing({ ...searchQuery })
