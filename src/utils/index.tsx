@@ -1,7 +1,9 @@
 import React from 'react'
+import { useModel } from 'umi'
 import style from '../layouts/index'
 import type { Dayjs } from 'dayjs'
 import { MehFilled } from '@ant-design/icons'
+import Login from '@/components/Login'
 
 /**
  * 
@@ -72,21 +74,11 @@ export const setToken = (token: string) => {
  * 获取token
  * @param token 
  */
-export const getToken = (token: string) => {
-	localStorage.getItem('xz_token')
+export const getToken = (tokenKey: string | undefined = undefined) => {
+	if (!tokenKey) return localStorage.getItem('xz_token')
+	return localStorage.getItem(tokenKey)
 }
 
-/**
- * heart default blur
- * @param userDetail 
- * @param listing 
- * @returns 
- */
-export const getDefaultHeart = (userDetail: any, listing: any) => {
-	if (!userDetail) return false
-	const { favoriteIds } = userDetail
-	return favoriteIds?.includes(listing!._id as string)
-}
 
 export const debounce = (fn: Function, delay: number) => {
 	let timer: any = null

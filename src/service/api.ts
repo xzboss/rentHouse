@@ -18,3 +18,6 @@ export const verifyToken = async () => {
 export const incrementUser = async (formData: userProps) => {
 	return await post('/proxy/api/incrementUser', formData)
 }
+export const updateUser = async (body: userProps) => {
+	return await post('/proxy/api/updateUser', body)
+}

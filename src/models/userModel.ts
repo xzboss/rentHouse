@@ -1,8 +1,9 @@
 //保存登陆状态及当前用户信息
 import React from 'react'
 import { useState, useCallback, useEffect } from 'react'
-import { verifyToken } from '@/service/api'
+import { verifyToken, updateUser } from '@/service/api'
 import { CODE } from '@/constants'
+import { notifySuccess, notifyWarn } from '@/utils/modal'
 interface userDetailProps {
 	name?: string
 	email?: string
@@ -33,5 +34,16 @@ export default function userModel() {
 			}
 		})()
 	}, [])
+
+	//listen userDetail
+	useEffect(() => {
+		console.log(userDetail);
+		(async () => {
+			if (!userDetail) return
+			const res = await updateUser(userDetail)
+			if (res.code === CODE.BAD_REQUEST) return notifyWarn(res.message)
+			if (res.code === CODE.SUCCESS) return console.log(res)
+		})()
+	}, [userDetail])
 	return { isLogin, setIsLogin, userDetail, setUserDetail }
 }

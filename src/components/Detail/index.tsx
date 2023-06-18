@@ -9,23 +9,23 @@ import Calender from '@/components/Calendar'
 import dayjs, { Dayjs } from 'dayjs'
 import Bg from '@/components/Bg'
 import houseDefault from '@/assets/houseDefault.png'
+import Login from '@/components/Login'
 import { listingProps } from '@/types'
-import { getDefaultHeart } from '@/utils'
 interface DetailProps {
 }
 
 const FC: React.FC<DetailProps> = (props) => {
-	const { userDetail } = useModel('userModel')
+	const { isLogin, userDetail, setUserDetail } = useModel('userModel')
+	const { openModal } = useModel('globalModel')
 	//响应
 	const screen = {
 		xs: 24, sm: 24, md: 24, lg: 24, xl: 20, xxl: 20
 	}
 	const location = useLocation() as any
 	const BgMemo = useMemo(() => <Bg />, [])
-	const [blur, setBlur] = useState(getDefaultHeart(userDetail, location.state.listing))
-
 
 	const {
+		_id,
 		validRange,
 		title,
 		category,
@@ -41,7 +41,7 @@ const FC: React.FC<DetailProps> = (props) => {
 	let [endDay, setEndDay] = useState<Dayjs | null>()
 	const day = dayjs()
 	const _validRange = [dayjs(validRange?.[0]), dayjs(validRange?.[1])] as [Dayjs, Dayjs]
-
+	const [blur, setBlur] = useState(userDetail?.favoriteIds?.includes(_id))
 	/**
 	 * 获取日历组件选择的时间
 	 * @param s 开始时间
@@ -64,6 +64,27 @@ const FC: React.FC<DetailProps> = (props) => {
 		console.log(startDay, endDay)
 	}
 
+	/**
+ * blur or noBlur
+ * @param e 
+ */
+	const clickHeart = (e: any) => {
+		e.stopPropagation()
+		if (!isLogin) return openModal(<Login />)
+
+		//isExist
+		const idx = userDetail?.favoriteIds?.indexOf(_id)
+		//add or remove
+		if (idx !== -1) {
+			userDetail?.favoriteIds?.splice(idx!, 1)
+		} else {
+			userDetail?.favoriteIds?.push(_id)
+			console.log(userDetail,)
+		}
+		//render and request
+		setUserDetail({ ...userDetail })
+		setBlur(userDetail?.favoriteIds?.includes(_id))
+	}
 
 	//缓存日历
 	const CalendarMemo = useMemo(() => {
@@ -76,7 +97,10 @@ const FC: React.FC<DetailProps> = (props) => {
 			<h1>{title}</h1>
 			<p className=''>{locationValue}</p>
 			<div className={style.img}>
-				<HeartButton onClick={() => { setBlur(blur ? 0 : 1) }} blur={blur} style={{ right: '5%', top: '5%' }} />
+				<HeartButton
+					onClick={clickHeart}
+					blur={blur ? 1 : 0}
+					style={{ right: '5%', top: '5%' }} />
 				<Image style={{ borderRadius: '15px' }}
 					onError={() => { }}
 					width={'100%'}

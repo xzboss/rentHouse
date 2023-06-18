@@ -1,4 +1,6 @@
 import { TIMEOUT, BASEURL } from '@/constants'
+import { getToken } from '@/utils'
+import { notifyWarn } from '@/utils/modal'
 //axios封装
 import axios from 'axios'
 const service = axios.create({
@@ -7,11 +9,12 @@ const service = axios.create({
 })
 service.interceptors.request.use(
 	(config: any) => {
-		config.headers['Authorization '] = localStorage.getItem('xz_token')
+		config.headers['Authorization'] = getToken()
 		return config
 	},
 	(err: any) => {
 		console.log(err)
+		notifyWarn('someThingError')
 		return Promise.reject(err)
 	}
 )
@@ -21,6 +24,7 @@ service.interceptors.response.use(
 	},
 	(err: any) => {
 		console.log(err)
+		notifyWarn('someThingError')
 		return Promise.reject(err)
 	}
 )

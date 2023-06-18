@@ -14,6 +14,6 @@ export const notifyWarn = (description: string = 'do you want to know ?') => {
 		style: {
 			color: '#ef551e'
 		},
-		description
+		description: description ?? 'someThingError'
 	})
 }
