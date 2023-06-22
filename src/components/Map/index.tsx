@@ -18,7 +18,6 @@ const MyMap: React.FC<any> = (props) => {
 	const { position = [29.56574, 103.738152] } = props
 	const url = _2D
 	const id = nanoid()
-	console.log(props.describe)
 	useEffect(() => {
 		//绑定地图
 		let map = L.map(id).setView(position, 13);

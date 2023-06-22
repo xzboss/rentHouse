@@ -30,8 +30,10 @@ export default (props: any) => {
 		setDisabled(inputValid.every(item => item))
 	}, [inputValid])
 
+	/**
+	 * register
+	 */
 	const register = async () => {
-
 		setIsLoading(true)
 		setDisabled(false)
 		const res = await incrementUser({

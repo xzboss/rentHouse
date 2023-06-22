@@ -14,6 +14,7 @@ export interface listingProps {
 	price?: number
 	reservations?: string[]
 	validRange?: Date[]
+	reservedRange?: Date[][]
 	locationValue?: string
 }
 export interface userProps {

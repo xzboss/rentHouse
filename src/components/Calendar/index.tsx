@@ -22,6 +22,7 @@ interface CalendarProps {
 	dateRange?: [Dayjs, Dayjs]//默认选中
 	style?: { [p: string]: any }
 	className?: string
+	reservedRange: [Dayjs, Dayjs][] | undefined
 }
 const calender: React.FC<CalendarProps> = (props) => {
 	const dayNow = dayjs()
@@ -63,6 +64,13 @@ const calender: React.FC<CalendarProps> = (props) => {
 			} else {
 				endDay = day
 			}
+			//选择是否也包含了已被预定时间
+			props.reservedRange?.map(item => {
+				const [reservedStart, reservedEnd] = [dayjs(item[0]), dayjs(item[1])]
+				const isValid = reservedStart.isBetween(startDay, endDay) && reservedEnd.isBetween(startDay, endDay)
+				//如果选择时间横跨已被预定区间
+				if (isValid) startDay = endDay = day
+			})
 			return
 		}
 		//否则就是两者都没选
@@ -87,10 +95,35 @@ const calender: React.FC<CalendarProps> = (props) => {
 	 */
 	const fullCellRender = (current: Dayjs) => {
 		//由于antd组件自动传入的dayjs实例无法使用插件，所以克隆一下
-		current = dayjs(current)
+		current = dayjs(current).hour(13)
+
+
 		let date = current.get('date')
 		if (panelChangeByPanel) {
 			return <i>{date}</i>
+		}
+
+		//今日前的就能选了
+		if (current.isBefore(dayjs().hour(13))) {
+			return (<i className={style.disabled}
+				style={{
+					backgroundColor: 'rgba(0,0,0,0.04)',
+					color: 'rgba(0,0,0,0.25)'
+				}}>{date}</i>)
+		}
+
+		//判断此日是否已被预定
+		for (const item of props.reservedRange ?? []) {
+			const [reservedStart, reservedEnd] = [dayjs(item[0]), dayjs(item[1])]
+			const isBetween = current.isBetween(reservedStart, reservedEnd)
+			//已预定
+			if (isBetween) {
+				return (<i className={style.disabled}
+					style={{
+						backgroundColor: 'rgba(0,0,0,0.04)',
+						color: 'rgba(0,0,0,0.25)'
+					}}>{date}</i>)
+			}
 		}
 		if (mode === 'year') date = current.month() + 1
 		//如果只有一天被选中
@@ -116,9 +149,9 @@ const calender: React.FC<CalendarProps> = (props) => {
 		if (current.isBetween(props.validRange?.[0] || dayNow, props.validRange?.[1] || dayNow)) {
 			return <i>{date}</i>
 		}
+		//不可选中样式
 		return <i className={style.disabled}>{date}</i>
 	}
-
 
 	return (
 		<Calendar

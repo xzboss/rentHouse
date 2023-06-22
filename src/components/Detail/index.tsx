@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import { Image, Divider, Space, Row, Col } from 'antd'
 import { useLocation, useModel } from 'umi'
 import { PrimaryButton, HeartButton } from '@/components/Button'
@@ -11,6 +11,9 @@ import Bg from '@/components/Bg'
 import houseDefault from '@/assets/houseDefault.png'
 import Login from '@/components/Login'
 import { listingProps } from '@/types'
+import { getReservedRanges, incrementReservation } from '@/service/api'
+import { CODE } from '@/constants'
+import { notifyWarn, notifySuccess } from '@/utils/modal'
 interface DetailProps {
 }
 
@@ -36,7 +39,8 @@ const FC: React.FC<DetailProps> = (props) => {
 		bathRoomCount,
 		guestCount,
 		description,
-		locationValue } = location.state.listing
+		locationValue,
+		reservations } = location.state.listing
 	let [startDay, setStartDay] = useState<Dayjs | null>()
 	let [endDay, setEndDay] = useState<Dayjs | null>()
 	const day = dayjs()
@@ -48,9 +52,9 @@ const FC: React.FC<DetailProps> = (props) => {
 	 * @param e 结束时间
 	 */
 	const getDate = (s: Dayjs, e: Dayjs) => {
-		//[startDay, endDay] = [s, e]
-		setStartDay(s)
-		setEndDay(e)
+		//下午12:00入住,上午14:00结束
+		setStartDay(s.hour(12).minute(0))
+		setEndDay(e.hour(14).minute(0))
 	}
 
 
@@ -59,9 +63,21 @@ const FC: React.FC<DetailProps> = (props) => {
 	 * @callback
 	 * 预定
 	 */
-	const reserve = () => {
-		if (!startDay) return
-		console.log(startDay, endDay)
+	const reserve = async () => {
+		if (!isLogin) return openModal(<Login />)
+		if (!startDay || (startDay.format('YYYY-MM-DD') === endDay!.format('YYYY-MM-DD'))) return notifyWarn('租赁时间最少为当日14：00 至 此日12：00')
+		try {
+			const res = await incrementReservation({
+				userId: userDetail?._id,
+				listingId: _id,
+				startDate: startDay,
+				endDate: endDay
+			})
+			notifySuccess('预定成功，可在个人中心查看')
+		} catch (error) {
+			notifyWarn()
+		}
+
 	}
 
 	/**
@@ -74,6 +90,7 @@ const FC: React.FC<DetailProps> = (props) => {
 
 		//isExist
 		const idx = userDetail?.favoriteIds?.indexOf(_id)
+
 		//add or remove
 		if (idx !== -1) {
 			userDetail?.favoriteIds?.splice(idx!, 1)
@@ -86,10 +103,19 @@ const FC: React.FC<DetailProps> = (props) => {
 		setBlur(userDetail?.favoriteIds?.includes(_id))
 	}
 
+	//getReservedRanges
+	let [reservedRange, setReservedRange] = useState<[Dayjs, Dayjs][]>()
+	useEffect(() => {
+		(async () => {
+			const { code, data } = await getReservedRanges(_id)
+			if (code === CODE.SUCCESS) setReservedRange(data)
+		})()
+	}, [])
+
 	//缓存日历
 	const CalendarMemo = useMemo(() => {
-		return <Calender validRange={_validRange} getDate={getDate} />
-	}, [validRange])
+		return <Calender reservedRange={reservedRange} validRange={_validRange} getDate={getDate} />
+	}, [validRange, reservedRange])
 	return (
 		<Col {...screen}>
 			{BgMemo}

@@ -18,7 +18,6 @@ const App: React.FC<HouseItemProps> = ({ btnStyle, listing }) => {
 	const { isLogin, userDetail, setUserDetail } = useModel('userModel')
 	const { openModal } = useModel('globalModel')
 	const [blur, setBlur] = useState(userDetail?.favoriteIds?.includes(listing?._id as string))
-	console.log(blur)
 
 
 	/**

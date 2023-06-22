@@ -9,6 +9,7 @@ import { objectEmptyOne, setToken } from '@/utils'
 import { login } from '@/service/api'
 import { CODE } from '@/constants'
 import { notifySuccess, notifyWarn } from '@/utils/modal'
+import LoadingAnimation from '@/components/LoadingAnimation'
 
 export default (props: any) => {
 	const { openModal, closeModal } = useModel('globalModel')
@@ -16,7 +17,7 @@ export default (props: any) => {
 	const [disabled, setDisabled] = useState<boolean>(false)
 	const [data, setData] = useState<Record<string, any>>({ email: '', password: '' })
 	const { pathname, state } = useLocation()
-
+	const [isLoading, setIsLoading] = useState<boolean>(false)
 
 	const toRegister = () => {
 		openModal(<Register />)
@@ -27,10 +28,9 @@ export default (props: any) => {
 	 * login
 	 */
 	const loginHandler = async () => {
-		console.log(isLogin)
+		setIsLoading(true)
+		setDisabled(false)
 		const res = await login(data)
-		console.log(data, res)
-
 		if (res.code === CODE.SUCCESS) {
 			closeModal()
 			notifySuccess(res.message)
@@ -38,11 +38,12 @@ export default (props: any) => {
 			setIsLogin(true)
 			setUserDetail(res.data.userDetail)
 			history.push(pathname, state)
-			return
 		}
 		if (res.code === CODE.UNAUTHENTICATED) {
 			notifyWarn(res.message)
 		}
+		setDisabled(true)
+		setIsLoading(false)
 	}
 
 	const changeHandler = (content: string, key: string) => {
@@ -62,7 +63,9 @@ export default (props: any) => {
 			<PrimaryButton
 				style={{ height: '50px' }}
 				onClick={loginHandler}
-				disabled={!disabled} />
+				disabled={!disabled}>
+				{isLoading ? <LoadingAnimation /> : 'Register'}
+			</PrimaryButton>
 			<div className={style.des}>
 				还没有账户？
 				<b className={style.a} onClick={toRegister}>创建账户</b>
