@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from 'react'
-import { Link, useModel, useNavigate, useParams } from 'umi'
+import { Link, useModel, useNavigate, useParams, history } from 'umi'
 import type, {
 	Row,
 	Col,
@@ -18,6 +18,9 @@ import Login from '../Login'
 import Register from '../Register'
 import { TxtButton } from '../Button'
 import Nav from './Nav'
+import { removeToken } from '@/utils'
+import Property from '@/components/Property'
+import style from './index.less'
 //个人信息路由导航
 function Menu() {
 	const { isLogin, setIsLogin } = useModel('userModel')
@@ -35,19 +38,27 @@ function Menu() {
 	 * 登出
 	 */
 	const loginOut = () => {
+		removeToken()
 		setIsLogin(false)
+		location.reload()
 	}
 
+
+	//add listing
+	const handleIncrementListing = () => {
+		openModal(<Property />)
+	}
 
 
 	//动态路由菜单
 	let items: MenuProps['items']
 	if (isLogin) {
 		items = [
-			{ key: 'myFavorites', label: <Link type='text' to='/myFavorites'>我的喜欢</Link> },
-			{ key: 'myProperties', label: <Link to='/myProperties'>我的房子</Link> },
-			{ key: 'myReservations', label: <Link to='/myReservations'>我的预定</Link> },
-			{ key: 'myTrips', label: <Link to='/myTrips'>我的旅行</Link> },
+			{ key: 'myFavorites', label: <Link className='a' to='/myFavorites'>我的喜欢</Link> },
+			{ key: 'myProperties', label: <Link className='a' to='/myProperties'>我的房子</Link> },
+			{ key: 'myReservations', label: <Link className='a' to='/myReservations'>我的预定</Link> },
+			{ key: 'myTrips', label: <Link className='a' to='/myTrips'>我的旅行</Link> },
+			{ key: 'addListing', label: <TxtButton onClick={handleIncrementListing}>Add Listing</TxtButton> },
 			{ key: 'loginOut', label: <TxtButton onClick={loginOut}>Login OUT</TxtButton> }
 		]
 	} else {

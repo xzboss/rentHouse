@@ -3,6 +3,7 @@ import style from './index.less'
 import '@/assets/icon/iconfont.css'
 
 interface FCProps {
+	children?: any
 	reg?: RegExp | undefined
 	tip?: string | undefined
 	[key: string]: any
@@ -10,30 +11,43 @@ interface FCProps {
 const FC: React.FC<FCProps> = (props) => {
 	let {
 		type,
+		children,
 		label,
 		reg = undefined,
 		tip = undefined,
 		onchange = () => { } } = props
-	const isShow = reg && tip
+	const isShow = reg || tip
 	const [verifyed, setVerifyed] = useState<boolean>(false)
 	const verify = (content: string | undefined, reg: RegExp | undefined, tip: string | undefined) => {
-		if (isShow) {
+		//针对多种验证反馈
+		if (reg && tip) {
 			const tmp = reg!.test(content!)
 			setVerifyed(tmp)
 			onchange(tmp, content)
-		} else {
-			onchange(content)
+			return
 		}
+		//针对单种验证反馈
+		if (reg || tip) {
+			const tmp = reg!.test(content!)
+			setVerifyed(tmp)
+			onchange(content)
+			return
+		}
+		onchange(content)
 	}
+	useEffect(() => {
+		verify(children ?? '', reg, tip)
+	}, [])
 
 	return (
 		<div className={style.box}>
 			<input type={type}
+				defaultValue={children}
 				placeholder=' '
 				onChange={e => verify(e.currentTarget.value, reg, tip)} />
 			<label>{label}</label>
-			{isShow && <i className={'iconfont ' + (verifyed ? 'icon-zhengque1' : 'icon-fork')}></i>}
-			{isShow && <span className={verifyed ? style.green : style.red}>{tip}</span>}
+			{reg && <i className={'iconfont ' + (verifyed ? 'icon-zhengque1' : 'icon-fork')}></i>}
+			{tip && <span className={verifyed ? style.green : style.red}>{tip}</span>}
 		</div>
 	)
 }

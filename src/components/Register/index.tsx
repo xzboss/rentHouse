@@ -12,13 +12,17 @@ import { TIMEOUT, CODE } from '@/constants'
 import LoadingAnimation from '@/components/LoadingAnimation'
 import { incrementUser } from '@/service/api'
 export default (props: any) => {
-	const { openModal } = useModel('globalModel')
+	const {
+		openModal,
+		disabled,
+		setDisabled,
+		isLoading,
+		setIsLoading } = useModel('globalModel')
+
 	const toLogin = () => {
 		openModal(<Login />)
 	}
-	const [disabled, setDisabled] = useState<boolean>(false)
 	const [inputValid, setInputValid] = useState<boolean[]>([false, false, false])
-	const [isLoading, setIsLoading] = useState<boolean>(false)
 	const formData = useMemo<Record<string, any>>(() => ({}), [])
 	//收集所有输入框是否合法及内容
 	const valid = (verifyed: boolean, content: string, idx: number) => {
@@ -28,6 +32,9 @@ export default (props: any) => {
 	}
 	useEffect(() => {
 		setDisabled(inputValid.every(item => item))
+		return () => {
+			setDisabled(false)
+		}
 	}, [inputValid])
 
 	/**

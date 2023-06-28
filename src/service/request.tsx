@@ -1,6 +1,7 @@
 import { TIMEOUT, BASEURL } from '@/constants'
 import { getToken } from '@/utils'
 import { notifyWarn } from '@/utils/modal'
+
 //axios封装
 import axios from 'axios'
 const service = axios.create({
@@ -24,7 +25,7 @@ service.interceptors.response.use(
 	},
 	(err: any) => {
 		console.log(err)
-		notifyWarn('someThingError')
+		notifyWarn('something error')
 		return Promise.reject(err)
 	}
 )

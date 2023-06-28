@@ -1,8 +1,0 @@
-.house-list {
-  margin-top: 1rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 200px);
-  grid-gap: 5px;
-  /* grid-template-rows: auto; */
-  justify-content: space-between;
-}

@@ -20,6 +20,19 @@
   border-radius: 10px !important;
   background-color: rgba(20, 208, 91, 0.5) !important;
 }
+.house-list {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 25vmin);
+  grid-gap: 2vmin;
+  /* grid-template-rows: auto; */
+  justify-content: space-between;
+}
 .ant-modal-confirm-content {
+  width: 100%;
+}
+.a {
+  display: inline-block;
+  text-align: center;
   width: 100%;
 }

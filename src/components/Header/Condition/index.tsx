@@ -11,7 +11,7 @@ const Page: React.FC = (props: any) => {
 		xs: 0, sm: 24, md: 24, lg: 24, xl: 24, xxl: 24
 	}
 	const { openModal } = useModel('globalModel')
-	const { data: { title, guestCount, dateRange } } = useModel('searchModel')
+	const { data: { locationValue, guestCount, dateRange } } = useModel('searchModel')
 	const [startDay, endDay] = dateRange ?? [dayjs(), dayjs().add(1, 'd')]
 	const handleOnclick = () => {
 		openModal(<Search />)
@@ -19,7 +19,7 @@ const Page: React.FC = (props: any) => {
 	}
 	return (
 		<Row className='condition' wrap={false} onClick={handleOnclick}>
-			<Col><Col >{title ?? 'anywhere'}</Col></Col>
+			<Col><Col >{(locationValue === 'any-where' || !locationValue) ? 'anywhere' : locationValue}</Col></Col>
 			<Col><Col {...screen}>|</Col></Col>
 			<Col><Col {...screen}><b>{dayjs(endDay).diff(startDay, 'd')}</b>  day</Col></Col>
 			<Col><Col {...screen}>|</Col></Col>

@@ -24,9 +24,6 @@
   font-size: 1.1rem;
   cursor: pointer;
 }
-.head .menu a {
-  text-align: center;
-}
 .head .menu .btns {
   min-width: 20%;
   font-size: 1rem;

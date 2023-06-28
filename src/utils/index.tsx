@@ -78,6 +78,14 @@ export const getToken = (tokenKey: string | undefined = undefined) => {
 	if (!tokenKey) return localStorage.getItem('xz_token')
 	return localStorage.getItem(tokenKey)
 }
+/**
+ * 移除token
+ * @param token 
+ */
+export const removeToken = (tokenKey: string | undefined = undefined) => {
+	if (!tokenKey) return localStorage.removeItem('xz_token')
+	return localStorage.removeItem(tokenKey)
+}
 
 
 export const debounce = (fn: Function, delay: number) => {

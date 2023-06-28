@@ -37,12 +37,11 @@ export default function userModel() {
 
 	//listen userDetail
 	useEffect(() => {
-		console.log(userDetail);
 		(async () => {
 			if (!userDetail) return
 			const res = await updateUser(userDetail)
 			if (res.code === CODE.BAD_REQUEST) return notifyWarn(res.message)
-			if (res.code === CODE.SUCCESS) return console.log(res)
+			if (res.code === CODE.SUCCESS) return
 		})()
 	}, [userDetail])
 	return { isLogin, setIsLogin, userDetail, setUserDetail }

@@ -15,9 +15,9 @@ export default function userModel() {
 	const dataDefault = {
 		bathRoomCount: 1,
 		guestCount: 1,
-		roomCount: 1,
-		dateRange: [dayjs().toDate(), dayjs().add(1, 'd').toDate()]
+		roomCount: 1
 	}
+	//dateRange: [dayjs().add(1, 'd').toDate(), dayjs().add(1, 'd').toDate()]
 	//搜索条件
 	const [data, setData] = useState<searchProps>({ ...dataDefault })
 	//保存当前步骤

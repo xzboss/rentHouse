@@ -8,13 +8,15 @@ import { listingProps, userDetailProps } from '@/types'
 import Login from '@/components/Login'
 
 interface HouseItemProps {
-	listing?: listingProps
+	btnClick?: (listingId?: string, reservationId?: string, reserveBy?: string) => void
+	btnDes?: any
+	listing?: any
 	btnStyle?: any
 	display?: string
 	height?: string
 	children?: React.ReactNode
 }
-const App: React.FC<HouseItemProps> = ({ btnStyle, listing }) => {
+const App: React.FC<HouseItemProps> = ({ btnStyle, listing, btnDes, btnClick }) => {
 	const { isLogin, userDetail, setUserDetail } = useModel('userModel')
 	const { openModal } = useModel('globalModel')
 	const [blur, setBlur] = useState(userDetail?.favoriteIds?.includes(listing?._id as string))
@@ -35,7 +37,6 @@ const App: React.FC<HouseItemProps> = ({ btnStyle, listing }) => {
 	const clickHeart = (e: any) => {
 		e.stopPropagation()
 		if (!isLogin) return openModal(<Login />)
-
 		//isExist
 		const idx = userDetail?.favoriteIds?.indexOf(listing?._id as string)
 		//add or remove
@@ -43,12 +44,18 @@ const App: React.FC<HouseItemProps> = ({ btnStyle, listing }) => {
 			userDetail?.favoriteIds?.splice(idx!, 1)
 		} else {
 			userDetail?.favoriteIds?.push(listing!._id as string)
-			console.log(userDetail,)
 		}
 		//render and request
 		setUserDetail({ ...userDetail })
 		setBlur(userDetail?.favoriteIds?.includes(listing?._id as string))
 	}
+
+
+	const handleRemove = async (e: any) => {
+		e.stopPropagation()
+		btnClick?.(listing._id, listing.reservationId, listing.reserveBy)
+	}
+
 	return (
 		<div className={style['house-item']} onClick={handleClick}>
 			<div className={style.imgBox}>
@@ -67,11 +74,13 @@ const App: React.FC<HouseItemProps> = ({ btnStyle, listing }) => {
 
 			<div>
 				<b>{listing?.title}</b>
-				<p>{listing?.category}</p>
+				<p>{listing?.dateRange ?? listing?.category}</p>
 				<div>
-					<b className={style.price}>￥{listing?.price} night</b>
+					<b className={style.price}>￥{listing?.totalPrice ?? listing?.price + ' night'}</b>
 				</div>
-				<DelButton style={{ ...btnStyle }} onClick={handleClick}>删除</DelButton>
+				<DelButton
+					style={{ ...btnStyle }}
+					onClick={handleRemove}>{btnDes ?? 'remove'}</DelButton>
 			</div>
 		</div>
 	)

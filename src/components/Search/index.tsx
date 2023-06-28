@@ -11,14 +11,10 @@ import Counter from '@/components/Counter'
 import style from './index.less'
 import { ALL } from '@/constants'
 
-interface ChildrenProps {
-	step: number,
-	setStep: React.Dispatch<React.SetStateAction<number>>
-}
 
-const P1: React.FC<ChildrenProps> = (props) => {
+const P1: React.FC = (props) => {
 	const { regions } = useModel('staticModel')
-	const { data, setData } = useModel('searchModel')
+	const { data, setData, step, setStep } = useModel('searchModel')
 	const options = useMemo(() => {
 		return regions.map(item => {
 			return {
@@ -30,10 +26,8 @@ const P1: React.FC<ChildrenProps> = (props) => {
 	}, [])
 
 	const [position, setPosition] = useState(options.find(item => item.label === data.title)?.latlng)
-	//描述
-	const [des, setDes] = useState(data.title)
-
-
+	//map描述
+	const [des, setDes] = useState(data.locationValue)
 
 	/**
 	* @callback 选项改变
@@ -58,7 +52,7 @@ const P1: React.FC<ChildrenProps> = (props) => {
 				style={{ width: '100%' }}
 				size='large'
 				showSearch
-				defaultValue={'anywhere'}
+				defaultValue={data.locationValue ?? 'anywhere'}
 				onChange={onChange}
 				onSearch={onSearch}
 				options={options}
@@ -67,25 +61,25 @@ const P1: React.FC<ChildrenProps> = (props) => {
 			<Map style={{ height: '35vmin' }} position={position} describe={des} />
 			<br />
 			<PrimaryButton
-				onClick={() => props.setStep(props.step + 1)}
+				onClick={() => setStep(step + 1)}
 				style={{ height: '40px' }}>N E X T</PrimaryButton>
 		</div>
 	)
 }
-const P2: React.FC<ChildrenProps> = (props) => {
-	const { data, setData } = useModel('searchModel')
-	const { step, setStep } = props
+const P2: React.FC = (props) => {
+	const { data, setData, step, setStep } = useModel('searchModel')
 	const getDate = (startDay: Dayjs, endDay: Dayjs) => {
-		setData({ ...data, dateRange: [startDay.toDate(), endDay.toDate()] })
+		setData({ ...data, dateRange: [startDay.toDate(), endDay?.toDate()] })
 	}
+	//缓存日历
+	const CalendarMemo = useMemo(() => {
+		return <Calendar validRange={[dayjs(), dayjs().add(8, 'y')]} getDate={getDate} />
+	}, [])
 	return (
 		<div className={style.box}>
 			<h2>When do you plan to go?</h2>
 			<p>select date</p>
-			<Calendar
-				validRange={[dayjs(), dayjs().add(8, 'M')]}
-				getDate={getDate}
-				dateRange={[dayjs(data.dateRange?.[0]), dayjs(data.dateRange?.[1])]} />
+			{CalendarMemo}
 			<br />
 			<Row gutter={30} wrap={false}>
 				<Col span={12}>
@@ -104,15 +98,14 @@ const P2: React.FC<ChildrenProps> = (props) => {
 		</div>
 	)
 }
-const P3: React.FC<ChildrenProps> = (props) => {
-	const { data, setData } = useModel('searchModel')
-	const { step, setStep } = props
+const P3: React.FC = (props) => {
+	const { data, setData, step, setStep } = useModel('searchModel')
 	const { closeModal } = useModel('globalModel')
 	const { type } = useParams()
 
 	//search
 	const search = () => {
-		history.push('/' + (type ?? ALL))
+		history.push('/' + (type ?? ALL), data)
 		closeModal()
 	}
 	return (
@@ -148,9 +141,9 @@ const P3: React.FC<ChildrenProps> = (props) => {
 const P: React.FC = (props: any) => {
 	const { step, setStep } = useModel('searchModel')
 	switch (step) {
-		case 1: return <P2 step={step} setStep={setStep} />
-		case 2: return <P3 step={step} setStep={setStep} />
-		default: return <P1 step={step} setStep={setStep} />
+		case 1: return <P2 />
+		case 2: return <P3 />
+		default: return <P1 />
 	}
 
 }

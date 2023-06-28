@@ -19,10 +19,10 @@ dayjs.extend(dayLocaleData)
 interface CalendarProps {
 	getDate?: (startDay: Dayjs, endDate: Dayjs) => void
 	validRange?: [Dayjs, Dayjs]//允许选择范围
-	dateRange?: [Dayjs, Dayjs]//默认选中
+	dateRange?: [Dayjs, Dayjs] | undefined//默认选中
 	style?: { [p: string]: any }
 	className?: string
-	reservedRange: [Dayjs, Dayjs][] | undefined
+	reservedRange?: [Dayjs, Dayjs][] | undefined
 }
 const calender: React.FC<CalendarProps> = (props) => {
 	const dayNow = dayjs()
@@ -46,6 +46,7 @@ const calender: React.FC<CalendarProps> = (props) => {
 	 * 变化后回调
 	 */
 	const onChange = (day: Dayjs) => {
+		day = day.hour(13)
 		if (panelChangeByPanel) {
 			panelChangeByPanel = false
 			return
@@ -84,9 +85,8 @@ const calender: React.FC<CalendarProps> = (props) => {
 	 */
 	const onSelect = () => {
 		//传给父
-		if (startDay && endDay && !startDay?.isSame(endDay)) {
-			props.getDate?.(startDay!, endDay!)
-		}
+
+		props.getDate?.(startDay!, endDay ?? startDay!)
 	}
 
 
@@ -103,7 +103,7 @@ const calender: React.FC<CalendarProps> = (props) => {
 			return <i>{date}</i>
 		}
 
-		//今日前的就能选了
+		//今日前的不能选了
 		if (current.isBefore(dayjs().hour(13))) {
 			return (<i className={style.disabled}
 				style={{

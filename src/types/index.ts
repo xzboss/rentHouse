@@ -5,6 +5,7 @@ export interface listingProps {
 	title?: string
 	description?: string
 	imageSrc?: string
+	img?: FormData
 	category?: string
 	roomCount?: number
 	bathroomCount?: number
@@ -16,6 +17,7 @@ export interface listingProps {
 	validRange?: Date[]
 	reservedRange?: Date[][]
 	locationValue?: string
+	reservationId?: string
 }
 export interface userProps {
 	name?: string

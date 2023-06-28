@@ -1,0 +1,80 @@
+@media screen and (max-width: 350px) {
+  .box h2 {
+    display: none;
+  }
+  .box .select {
+    grid-template-columns: 1;
+  }
+}
+@media screen and (max-width: 500px) {
+  .select {
+    grid-template-columns: 1fr !important;
+  }
+}
+.box {
+  width: 100%;
+  /* h2 {
+		overflow: hidden;
+		white-space: nowrap;
+	} */
+}
+.box p {
+  opacity: 0.4;
+}
+.box .select {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 20px;
+  max-height: 45vh;
+  overflow: auto;
+}
+.box .select .selectBox {
+  border-radius: 15px;
+  cursor: pointer;
+  box-sizing: border-box;
+  display: inline-block;
+  padding: 1rem;
+  border: 3px solid rgba(0, 0, 0, 0.1);
+}
+.box .select .selectBox:hover {
+  border-color: var(--color-green);
+}
+.box .select .selectBox b {
+  display: block;
+  font-size: 1.3rem;
+}
+.box .select .selected {
+  border-color: var(--color-green);
+}
+.box .uploadBox {
+  width: 100%;
+}
+.box .uploadBox input[type="file"] {
+  display: none;
+}
+.box .uploadBox div {
+  color: rgba(0, 0, 0, 0.2);
+  border: 2px dashed black;
+  transition: 0.3s;
+  cursor: pointer;
+  font-size: 5rem;
+  width: 100%;
+  height: 50vmin;
+  border-radius: 15px;
+  line-height: 50vmin;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.box .uploadBox div:hover {
+  font-size: 6rem;
+}
+.box .uploadBox div img {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  font-size: 0;
+  width: 100%;
+  border-radius: 15px;
+}

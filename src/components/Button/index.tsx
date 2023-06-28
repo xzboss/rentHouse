@@ -7,7 +7,7 @@ interface btnStyle {
 		[p: string]: any
 	}
 	children?: React.ReactNode
-	onClick?: (e?: any) => void
+	onClick?: any
 	className?: any
 	blur?: boolean | number
 }

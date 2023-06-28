@@ -29,6 +29,11 @@ export default function staticModel() {
 			region: '亚洲',
 			country: '日本',
 			latlng: [50, 13.9]
+		},
+		{
+			region: 'any',
+			country: 'where',
+			latlng: [50, 13.9]
 		}
 	]
 	return { icons, regions }

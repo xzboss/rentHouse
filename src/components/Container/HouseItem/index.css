@@ -1,6 +1,7 @@
 .house-item {
+  margin-bottom: 10px;
   position: relative;
-  width: 200px;
+  width: 25vmin;
   text-align: left;
   /* margin: 10px; */
   cursor: pointer;
@@ -11,10 +12,12 @@
 .house-item p,
 .house-item div {
   margin: 2px 0;
-  padding: 5px;
+  padding: 1px;
 }
 .house-item p {
-  opacity: 0.6;
+  padding: 3px 0;
+  font-size: 0.9rem;
+  opacity: 0.7;
 }
 .house-item .price {
   margin: 0;
@@ -22,8 +25,8 @@
   padding: 0;
 }
 .house-item .imgBox {
-  width: 200px;
-  height: 200px;
+  width: 25vmin;
+  height: 25vmin;
   border-radius: 15px;
   display: flex;
   margin: 0;
@@ -31,11 +34,11 @@
   overflow: hidden;
 }
 .house-item .imgBox .imgAnt {
-  margin: 2.5% auto;
+  margin: 1% auto;
   padding: 0;
-  width: 95%;
+  width: 98%;
   overflow: hidden;
-  height: 95%;
+  height: 98%;
   border-radius: 10px;
   transition: 0.2s;
 }
@@ -48,12 +51,12 @@
 }
 .house-item .heart {
   transition: 0.2s;
-  width: 15px;
-  height: 15px;
-  margin-right: 10%;
-  margin-top: 10%;
-  top: 0;
-  right: 0;
+  width: 3vmin;
+  height: 3vmin;
+  max-width: 15px;
+  max-height: 15px;
+  top: 2vmin;
+  right: 3vmin;
 }
 .house-item .heart:hover {
   transform: scale(1.1);

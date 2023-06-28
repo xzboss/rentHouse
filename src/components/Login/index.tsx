@@ -12,12 +12,16 @@ import { notifySuccess, notifyWarn } from '@/utils/modal'
 import LoadingAnimation from '@/components/LoadingAnimation'
 
 export default (props: any) => {
-	const { openModal, closeModal } = useModel('globalModel')
+	const {
+		openModal,
+		closeModal,
+		disabled,
+		setDisabled,
+		isLoading,
+		setIsLoading } = useModel('globalModel')
 	const { isLogin, setIsLogin, userDetail, setUserDetail } = useModel('userModel')
-	const [disabled, setDisabled] = useState<boolean>(false)
 	const [data, setData] = useState<Record<string, any>>({ email: '', password: '' })
 	const { pathname, state } = useLocation()
-	const [isLoading, setIsLoading] = useState<boolean>(false)
 
 	const toRegister = () => {
 		openModal(<Register />)
@@ -53,6 +57,9 @@ export default (props: any) => {
 	useEffect(() => {
 		if (objectEmptyOne(data)) return setDisabled(false)
 		setDisabled(true)
+		return () => {
+			setDisabled(false)
+		}
 	}, [data])
 
 	return (
@@ -64,7 +71,7 @@ export default (props: any) => {
 				style={{ height: '50px' }}
 				onClick={loginHandler}
 				disabled={!disabled}>
-				{isLoading ? <LoadingAnimation /> : 'Register'}
+				{isLoading ? <LoadingAnimation /> : 'Login'}
 			</PrimaryButton>
 			<div className={style.des}>
 				还没有账户？

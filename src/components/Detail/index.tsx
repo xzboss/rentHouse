@@ -5,27 +5,37 @@ import { PrimaryButton, HeartButton } from '@/components/Button'
 import '@/assets/icon/iconfont.css'
 import style from './index.less'
 import Map from '@/components/Map'
-import Calender from '@/components/Calendar'
+import Calendar from '@/components/Calendar'
 import dayjs, { Dayjs } from 'dayjs'
-import Bg from '@/components/Bg'
 import houseDefault from '@/assets/houseDefault.png'
 import Login from '@/components/Login'
 import { listingProps } from '@/types'
-import { getReservedRanges, incrementReservation } from '@/service/api'
+import {
+	getReservedRanges,
+	incrementReservation,
+	findUserById
+} from '@/service/api'
 import { CODE } from '@/constants'
 import { notifyWarn, notifySuccess } from '@/utils/modal'
+import LoadingAnimation from '@/components/LoadingAnimation'
 interface DetailProps {
 }
 
 const FC: React.FC<DetailProps> = (props) => {
 	const { isLogin, userDetail, setUserDetail } = useModel('userModel')
-	const { openModal } = useModel('globalModel')
+	const {
+		openModal,
+		disabled,
+		setDisabled,
+		isLoading,
+		setIsLoading } = useModel('globalModel')
 	//响应
+	console.log(disabled)
+
 	const screen = {
 		xs: 24, sm: 24, md: 24, lg: 24, xl: 20, xxl: 20
 	}
 	const location = useLocation() as any
-	const BgMemo = useMemo(() => <Bg />, [])
 
 	const {
 		_id,
@@ -40,12 +50,15 @@ const FC: React.FC<DetailProps> = (props) => {
 		guestCount,
 		description,
 		locationValue,
-		reservations } = location.state.listing
+		reservations,
+		userId } = location.state.listing
 	let [startDay, setStartDay] = useState<Dayjs | null>()
 	let [endDay, setEndDay] = useState<Dayjs | null>()
 	const day = dayjs()
 	const _validRange = [dayjs(validRange?.[0]), dayjs(validRange?.[1])] as [Dayjs, Dayjs]
 	const [blur, setBlur] = useState(userDetail?.favoriteIds?.includes(_id))
+	const totalPrice = (endDay ? (endDay as Dayjs).diff(startDay, 'd') * price : 0).toFixed(2)
+	const [boss, setBoss] = useState('xzboss')
 	/**
 	 * 获取日历组件选择的时间
 	 * @param s 开始时间
@@ -53,8 +66,8 @@ const FC: React.FC<DetailProps> = (props) => {
 	 */
 	const getDate = (s: Dayjs, e: Dayjs) => {
 		//下午12:00入住,上午14:00结束
-		setStartDay(s.hour(12).minute(0))
-		setEndDay(e.hour(14).minute(0))
+		setStartDay(s?.hour(12).minute(0))
+		setEndDay(e?.hour(14).minute(0))
 	}
 
 
@@ -65,32 +78,43 @@ const FC: React.FC<DetailProps> = (props) => {
 	 */
 	const reserve = async () => {
 		if (!isLogin) return openModal(<Login />)
-		if (!startDay || (startDay.format('YYYY-MM-DD') === endDay!.format('YYYY-MM-DD'))) return notifyWarn('租赁时间最少为当日14：00 至 此日12：00')
+		if (!startDay || !endDay || (startDay.isSame(endDay, 'd'))) {
+			return notifyWarn('租赁时间最少为 当日14:00 至 次日12:00')
+		}
 		try {
+			setDisabled(true)
+			setIsLoading(true)
 			const res = await incrementReservation({
 				userId: userDetail?._id,
 				listingId: _id,
 				startDate: startDay,
-				endDate: endDay
+				endDate: endDay,
+				totalPrice
 			})
-			notifySuccess('预定成功，可在个人中心查看')
+			if (res.code === CODE.SUCCESS) {
+				userDetail?.reservations?.push(res.data._id)
+				setUserDetail({ ...userDetail })
+				notifySuccess(res.message)
+			}
+			if (res.code === CODE.UNAUTHENTICATED) {
+				notifyWarn(res.message)
+			}
+			setDisabled(false)
+			setIsLoading(false)
 		} catch (error) {
 			notifyWarn()
 		}
-
 	}
 
 	/**
- * blur or noBlur
- * @param e 
- */
+		* blur or noBlur
+		* @param e 
+		*/
 	const clickHeart = (e: any) => {
 		e.stopPropagation()
 		if (!isLogin) return openModal(<Login />)
-
 		//isExist
 		const idx = userDetail?.favoriteIds?.indexOf(_id)
-
 		//add or remove
 		if (idx !== -1) {
 			userDetail?.favoriteIds?.splice(idx!, 1)
@@ -110,15 +134,22 @@ const FC: React.FC<DetailProps> = (props) => {
 			const { code, data } = await getReservedRanges(_id)
 			if (code === CODE.SUCCESS) setReservedRange(data)
 		})()
+	}, [isLoading])
+
+	//获取发布者
+	useEffect(() => {
+		(async () => {
+			const { code, data } = await findUserById(userId)
+			if (code === CODE.SUCCESS) setBoss(data.name)
+		})()
 	}, [])
 
 	//缓存日历
 	const CalendarMemo = useMemo(() => {
-		return <Calender reservedRange={reservedRange} validRange={_validRange} getDate={getDate} />
+		return <Calendar reservedRange={reservedRange} validRange={_validRange} getDate={getDate} />
 	}, [validRange, reservedRange])
 	return (
 		<Col {...screen}>
-			{BgMemo}
 			<br />
 			<h1>{title}</h1>
 			<p className=''>{locationValue}</p>
@@ -145,14 +176,14 @@ const FC: React.FC<DetailProps> = (props) => {
 
 					<div className={style.space}>
 						<h2>
-							发布者{'xz'} :
+							发布者: {boss}
 						</h2>
 						<Image style={{ borderRadius: '50%' }}
-							onError={() => { }}
+							onError={() => 'http://942875315.hkfree.work/logo.png'}
 							width={30}
 							height={30}
 							preview={false}
-							src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+							src="http://942875315.hkfree.work/logo.png"
 						/>
 					</div>
 					<br />
@@ -185,17 +216,22 @@ const FC: React.FC<DetailProps> = (props) => {
 					xl={{ span: 10, order: 2 }}
 					xxl={{ span: 10, order: 2 }}>
 					<Space align='center'>
-						<h1 style={{ display: 'inline-block' }}>￥{100}</h1>
+						<h1 style={{ display: 'inline-block' }}>￥{price}</h1>
 						<span>night</span>
 					</Space>
 					<Divider />
 					{CalendarMemo}
 					<Divider />
-					<PrimaryButton style={{ height: '2.5rem' }} onClick={reserve}>Reserve</PrimaryButton>
+					<PrimaryButton
+						style={{ height: '2.5rem' }}
+						onClick={reserve}
+						disabled={disabled}>
+						{isLoading ? <LoadingAnimation /> : 'Reserve'}
+					</PrimaryButton>
 					<Divider />
 					<div className={style.price}>
 						<h2>Total</h2>
-						<h2>￥ {startDay ? (endDay as Dayjs).diff(startDay, 'd') * price : price}</h2>
+						<h2>￥ {totalPrice}</h2>
 					</div>
 				</Col>
 			</Row>

@@ -1,6 +1,7 @@
 .house-item {
+	margin-bottom: 10px;
 	position: relative;
-	width: 200px;
+	width: 25vmin;
 	text-align: left;
 	/* margin: 10px; */
 	cursor: pointer;
@@ -11,11 +12,13 @@
 	p,
 	div {
 		margin: 2px 0;
-		padding: 5px;
+		padding: 1px;
 	}
 
 	p {
-		opacity: .6;
+		padding: 3px 0;
+		font-size: .9rem;
+		opacity: .7;
 	}
 
 	.price {
@@ -25,8 +28,8 @@
 	}
 
 	.imgBox {
-		width: 200px;
-		height: 200px;
+		width: 25vmin;
+		height: 25vmin;
 		border-radius: 15px;
 		display: flex;
 		margin: 0;
@@ -34,11 +37,11 @@
 		overflow: hidden;
 
 		.imgAnt {
-			margin: 2.5% auto;
+			margin: 1% auto;
 			padding: 0;
-			width: 95%;
+			width: 98%;
 			overflow: hidden;
-			height: 95%;
+			height: 98%;
 			border-radius: 10px;
 			transition: .2s;
 
@@ -58,12 +61,12 @@
 
 	.heart {
 		transition: .2s;
-		width: 15px;
-		height: 15px;
-		margin-right: 10%;
-		margin-top: 10%;
-		top: 0;
-		right: 0;
+		width: 3vmin;
+		height: 3vmin;
+		max-width: 15px;
+		max-height: 15px;
+		top: 2vmin;
+		right: 3vmin;
 
 		&:hover {
 			transform: scale(1.1);
