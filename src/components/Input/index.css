@@ -12,13 +12,16 @@
   padding: 2px 10px;
   color: rgba(0, 0, 0, 0.5);
 }
+.box .input-valid {
+  border: 1px solid var(--color-red);
+}
 .box input {
   width: 100%;
   outline-style: none;
   border-style: none;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--color-green);
   padding: 15px;
-  caret-color: #38ff6a;
+  caret-color: var(--color-green);
   border-radius: 2px;
   transition: all 0.3s;
   /* 聚焦后 */
@@ -29,7 +32,7 @@
 }
 .box input:focus {
   border-width: 2px;
-  border-color: rgba(0, 0, 0, 0.3);
+  border-color: var(--color-green);
   border-radius: 10px;
 }
 .box input:focus + label {

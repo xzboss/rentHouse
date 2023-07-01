@@ -16,21 +16,12 @@ const FC: React.FC<FCProps> = (props) => {
 		reg = undefined,
 		tip = undefined,
 		onchange = () => { } } = props
-	const isShow = reg || tip
 	const [verifyed, setVerifyed] = useState<boolean>(false)
 	const verify = (content: string | undefined, reg: RegExp | undefined, tip: string | undefined) => {
-		//针对多种验证反馈
-		if (reg && tip) {
-			const tmp = reg!.test(content!)
-			setVerifyed(tmp)
-			onchange(tmp, content)
-			return
-		}
-		//针对单种验证反馈
 		if (reg || tip) {
 			const tmp = reg!.test(content!)
 			setVerifyed(tmp)
-			onchange(content)
+			onchange(tmp, content)
 			return
 		}
 		onchange(content)
@@ -41,7 +32,9 @@ const FC: React.FC<FCProps> = (props) => {
 
 	return (
 		<div className={style.box}>
-			<input type={type}
+			<input
+				className={(reg || tip) && (verifyed ? '' : style['input-valid'])}
+				type={type}
 				defaultValue={children}
 				placeholder=' '
 				onChange={e => verify(e.currentTarget.value, reg, tip)} />

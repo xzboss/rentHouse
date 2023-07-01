@@ -187,31 +187,38 @@ const P4: React.FC = (props) => {
 const P5: React.FC = (props) => {
 	const { property, setProperty } = useModel('propertyModel')
 	const { title, description, price } = property
+	const [disabled, setDisabled] = useState([false, false, false])
 	return (
 		<div className={style.box}>
 			<h2>How do you introduce your house?</h2>
 			<p>Introduce the house</p>
 			<div className={style.main}>
 				<TextInput
-					reg={/^[A-Za-z\u4e00-\u9fa5]{1,10}$/}
+					reg={/^[A-Za-z\u4e00-\u9fa50-9]{1,50}$/}
 					label='title'
-					onchange={(content: string) => {
+					onchange={(_: any, content: string) => {
+						disabled[0] = _
+						setDisabled([...disabled])
 						setProperty({ ...property, title: content })
 					}} >{title}</TextInput>
 				<TextInput
-					reg={/^.{1,100}$/}
+					reg={/^.{1,500}$/}
 					label='description'
-					onchange={(content: string) => {
+					onchange={(_: any, content: string) => {
+						disabled[1] = _
+						setDisabled([...disabled])
 						setProperty({ ...property, description: content })
 					}} >{description}</TextInput>
 				<TextInput
 					reg={/^\d+(\.\d{1,2})?$/}
 					label='price'
-					onchange={(content: string) => {
+					onchange={(_: any, content: string) => {
+						disabled[2] = _
+						setDisabled([...disabled])
 						setProperty({ ...property, price: content ? Number(content) : undefined })
 					}} >{price}</TextInput>
 			</div>
-			<BtnGroup />
+			<BtnGroup disabled={disabled.indexOf(false) !== -1} />
 		</div>
 	)
 }

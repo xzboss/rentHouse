@@ -111,12 +111,12 @@ const P3: React.FC = (props) => {
 	return (
 		<div className={style.box}>
 			<h2>More information</h2>
-			<p>default 1</p>
-			<Counter num={data.guestCount} onChange={(num) => { setData({ ...data, guestCount: num }) }}>{['人数', '有多少人需要住宿?']}</Counter>
+			<p>Default one</p>
+			<Counter num={data.guestCount} onChange={(num) => { setData({ ...data, guestCount: num }) }}>{['Guest', 'How many guest?']}</Counter>
 			<br />
-			<Counter num={data.roomCount} onChange={(num) => { setData({ ...data, roomCount: num }) }}>{['房间数', '你需要多少房间?']}</Counter>
+			<Counter num={data.roomCount} onChange={(num) => { setData({ ...data, roomCount: num }) }}>{['Room', 'How many rooms?']}</Counter>
 			<br />
-			<Counter num={data.bathRoomCount} onChange={(num) => { setData({ ...data, bathRoomCount: num }) }}>{['厕所数', '你需要多少厕所?']}</Counter>
+			<Counter num={data.bathRoomCount} onChange={(num) => { setData({ ...data, bathRoomCount: num }) }}>{['Bathroom', 'How many bathrooms?']}</Counter>
 			<br />
 			<Row gutter={30} wrap={false}>
 				<Col span={12}>

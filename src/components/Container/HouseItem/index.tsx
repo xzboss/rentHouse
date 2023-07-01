@@ -3,7 +3,7 @@ import { history, useModel } from 'umi'
 import { Image } from 'antd'
 import style from './index.less'
 import { DelButton, HeartButton } from '../../Button'
-import houseDefault from '@/assets/houseDefault.png'
+import houseDefault from '@/assets/houseDefault.jpg'
 import { listingProps, userDetailProps } from '@/types'
 import Login from '@/components/Login'
 

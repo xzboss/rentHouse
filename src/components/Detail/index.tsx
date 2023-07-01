@@ -1,13 +1,14 @@
 import React, { useState, useMemo, useEffect } from 'react'
 import { Image, Divider, Space, Row, Col } from 'antd'
 import { useLocation, useModel } from 'umi'
+
 import { PrimaryButton, HeartButton } from '@/components/Button'
 import '@/assets/icon/iconfont.css'
 import style from './index.less'
 import Map from '@/components/Map'
 import Calendar from '@/components/Calendar'
 import dayjs, { Dayjs } from 'dayjs'
-import houseDefault from '@/assets/houseDefault.png'
+import houseDefault from '@/assets/houseDefault.jpg'
 import Login from '@/components/Login'
 import { listingProps } from '@/types'
 import {
@@ -18,6 +19,8 @@ import {
 import { CODE } from '@/constants'
 import { notifyWarn, notifySuccess } from '@/utils/modal'
 import LoadingAnimation from '@/components/LoadingAnimation'
+import { AVATARURL } from '@/constants'
+
 interface DetailProps {
 }
 
@@ -176,14 +179,13 @@ const FC: React.FC<DetailProps> = (props) => {
 
 					<div className={style.space}>
 						<h2>
-							发布者: {boss}
+							Publisher: {boss}
 						</h2>
 						<Image style={{ borderRadius: '50%' }}
-							onError={() => 'http://942875315.hkfree.work/logo.png'}
 							width={30}
 							height={30}
 							preview={false}
-							src="http://942875315.hkfree.work/logo.png"
+							src={AVATARURL}
 						/>
 					</div>
 					<br />
@@ -198,13 +200,13 @@ const FC: React.FC<DetailProps> = (props) => {
 						<div style={{ display: 'inline-block' }}>
 							<b>{category}</b>
 							<br />
-							<span>this property is {category}</span>
+							<span>The surroundings of this property are: {category}</span>
 						</div>
 					</Space>
 					<Divider />
 					<p>{description}</p>
 					<Divider />
-					<Map style={{ height: '350px' }} position={latlng} />
+					<Map style={{ height: '350px' }} position={latlng} describe={locationValue} />
 				</Col>
 
 

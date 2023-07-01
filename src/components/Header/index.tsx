@@ -54,17 +54,17 @@ function Menu() {
 	let items: MenuProps['items']
 	if (isLogin) {
 		items = [
-			{ key: 'myFavorites', label: <Link className='a' to='/myFavorites'>我的喜欢</Link> },
-			{ key: 'myProperties', label: <Link className='a' to='/myProperties'>我的房子</Link> },
-			{ key: 'myReservations', label: <Link className='a' to='/myReservations'>我的预定</Link> },
-			{ key: 'myTrips', label: <Link className='a' to='/myTrips'>我的旅行</Link> },
-			{ key: 'addListing', label: <TxtButton onClick={handleIncrementListing}>Add Listing</TxtButton> },
-			{ key: 'loginOut', label: <TxtButton onClick={loginOut}>Login OUT</TxtButton> }
+			{ key: 'myTrips', label: <Link className='a' to='/myTrips'>MyTrip</Link> },
+			{ key: 'myFavorites', label: <Link className='a' to='/myFavorites'>My Favorite</Link> },
+			{ key: 'myProperties', label: <Link className='a' to='/myProperties'>My Property</Link> },
+			{ key: 'myReservations', label: <Link className='a' to='/myReservations'>my Reservation</Link> },
+			{ key: 'addListing', label: <TxtButton onClick={handleIncrementListing}>Publish Home</TxtButton> },
+			{ key: 'loginOut', label: <TxtButton onClick={loginOut}>Sing out</TxtButton> }
 		]
 	} else {
 		items = [
-			{ key: 'login', label: <TxtButton onClick={() => handleClick(<Login />)}>登录</TxtButton> },
-			{ key: 'register', label: <TxtButton onClick={() => handleClick(<Register />)}>注册</TxtButton> }
+			{ key: 'login', label: <TxtButton onClick={() => handleClick(<Login />)}>Sign in</TxtButton> },
+			{ key: 'register', label: <TxtButton onClick={() => handleClick(<Register />)}>Sign up</TxtButton> }
 		]
 	}
 
@@ -76,7 +76,9 @@ function Menu() {
 			<Col {...screen}>
 				<span className='menu-des'>MENU</span>
 			</Col>
-			<Dropdown menu={{ items }}>
+			<Dropdown
+				menu={{ items }}
+				placement="bottomCenter">
 				<a onClick={(e) => e.preventDefault()} className='btns'>
 					<div className='btn'>
 						<Space>

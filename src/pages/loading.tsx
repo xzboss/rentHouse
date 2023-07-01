@@ -1,7 +1,13 @@
 import React from 'react'
-
+import LoadingAnimation from '@/components/LoadingAnimation'
 export default (props: any) => {
 	return (
-		<h1>loading</h1>
+		<div style={{
+			display: 'flex',
+			alignContent: 'center',
+			justifyContent: 'center'
+		}}>
+			<LoadingAnimation />
+		</div>
 	)
 }

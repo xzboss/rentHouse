@@ -55,9 +55,8 @@
 .box .uploadBox div {
   color: rgba(0, 0, 0, 0.2);
   border: 2px dashed black;
-  transition: 0.3s;
   cursor: pointer;
-  font-size: 5rem;
+  font-size: 5rem !important;
   width: 100%;
   height: 50vmin;
   border-radius: 15px;
@@ -66,8 +65,12 @@
   position: relative;
   overflow: hidden;
 }
-.box .uploadBox div:hover {
-  font-size: 6rem;
+.box .uploadBox div span {
+  transition: 0.1s;
+  font-size: 5rem;
+}
+.box .uploadBox div:hover span {
+  font-size: 6rem !important;
 }
 .box .uploadBox div img {
   position: absolute;

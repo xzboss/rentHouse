@@ -2,6 +2,7 @@ import { TIMEOUT, BASEURL } from '@/constants'
 import { getToken } from '@/utils'
 import { notifyWarn } from '@/utils/modal'
 
+
 //axios封装
 import axios from 'axios'
 const service = axios.create({

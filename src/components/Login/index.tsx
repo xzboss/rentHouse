@@ -64,7 +64,7 @@ export default (props: any) => {
 
 	return (
 		<Space direction='vertical' style={{ width: '100%' }}>
-			<h1 style={{ textAlign: 'center' }}>Login</h1>
+			<h1 style={{ textAlign: 'center' }}>Sing in</h1>
 			<EmailInput onchange={(content: string) => changeHandler(content, 'email')} />
 			<PasswordInput onchange={(content: string) => changeHandler(content, 'password')} />
 			<PrimaryButton
@@ -74,8 +74,8 @@ export default (props: any) => {
 				{isLoading ? <LoadingAnimation /> : 'Login'}
 			</PrimaryButton>
 			<div className={style.des}>
-				还没有账户？
-				<b className={style.a} onClick={toRegister}>创建账户</b>
+				Don't have an account yet?&nbsp;
+				<b className={style.a} onClick={toRegister}>Create an account</b>
 			</div>
 		</Space>
 	)

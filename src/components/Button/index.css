@@ -31,6 +31,11 @@
 .ant-modal-confirm-content {
   width: 100%;
 }
+/* .a {
+	display: inline-block;
+	text-align: center;
+	width: 100%;
+} */
 .btn {
   display: flex;
   justify-content: center;
@@ -120,5 +125,4 @@
 .txt {
   display: inline-block;
   width: 100%;
-  text-align: center;
 }

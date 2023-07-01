@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react'
 import { Calendar, Select } from 'antd'
-import type { CalendarMode } from 'antd/es/calendar/generateCalendar'
 import { SwapRightOutlined } from '@ant-design/icons'
 import type { Dayjs } from 'dayjs'
 import isBetween from 'dayjs/plugin/isBetween'
@@ -164,7 +163,7 @@ const calender: React.FC<CalendarProps> = (props) => {
 			fullCellRender={fullCellRender}
 			onPanelChange={onPanelChange}
 			headerRender={({ onChange }) => {
-				const format = 'YYYY 年 MM 月 DD 日'
+				const format = 'DD , MMM , YYYY'
 				const startDate = startDay?.format(format) || dayNow.format(format)
 				const endDate = endDay?.format(format) || startDate
 				const validRange = props.validRange ?? [dayNow, dayNow]
@@ -185,7 +184,7 @@ const calender: React.FC<CalendarProps> = (props) => {
 				options[startYear] = []
 				for (let j = startMonth; j <= endMonth; j++) {
 					options[startYear].push(
-						<Select.Option key={j}>{j + ' 月'}</Select.Option>
+						<Select.Option key={j}>{j}</Select.Option>
 					)
 				}
 				//不足一年超出月份
@@ -195,7 +194,7 @@ const calender: React.FC<CalendarProps> = (props) => {
 					//结尾年的月份
 					for (let i = 1; i <= mOver; i++) {
 						options[startYear + yDiff + 1].push(
-							<Select.Option key={i}>{i + ' 月'}</Select.Option>
+							<Select.Option key={i}>{i}</Select.Option>
 						)
 					}
 				}
@@ -205,14 +204,14 @@ const calender: React.FC<CalendarProps> = (props) => {
 						options[startYear + i] = []
 						for (let j = 1; j <= 12; j++) {
 							options[startYear + i].push(
-								<Select.Option key={j}>{j + ' 月'}</Select.Option>
+								<Select.Option key={j}>{j}</Select.Option>
 							)
 						}
 					}
 				}
 				//所有年选项集合
 				const yOptions = Object.keys(options).map((year) => {
-					return <Select.Option key={year}>{year + ' 月'}</Select.Option>
+					return <Select.Option key={year}>{year}</Select.Option>
 				})
 
 				//跳转
@@ -239,12 +238,12 @@ const calender: React.FC<CalendarProps> = (props) => {
 							<span>{endDate}</span>
 						</div>
 						<div className={style.selectBox}>
-							<Select value={currentYear + ' 年'}
+							<Select value={currentYear + ' Y'}
 								style={{ width: 100 }}
 								onChange={(e) => to(e, 'y')}
 							>{yOptions}</Select>
 							<span>-</span>
-							<Select value={currentMonth + ' 月'}
+							<Select value={currentMonth + ' M'}
 								style={{ width: 100 }}
 								onChange={(e) => to(e, 'm')}>{options[currentYear]}</Select>
 						</div>

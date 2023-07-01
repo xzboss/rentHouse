@@ -1,5 +1,7 @@
 /* 一些全局静态数据,默认数据 */
 import React from 'react'
+import worldCountries from 'world-countries'
+console.log(worldCountries)
 interface NavItemType {
 	className: string
 	type: string
@@ -7,34 +9,38 @@ interface NavItemType {
 export default function staticModel() {
 	// 类型导航图标类名
 	const icons: NavItemType[] = [
-		{ className: 'icon-luyingcamping1', type: '野外' },
-		{ className: 'icon-Desert', type: '沙漠' },
-		{ className: 'icon-Snowflake', type: '雪地' },
-		{ className: 'icon-beach-parasol-water-', type: '沙滩' },
-		{ className: 'icon-xianxinghaidao', type: '海岛' },
-		{ className: 'icon-building-modern-1', type: '都市' },
-		{ className: 'icon-diaoyu', type: '钓鱼' },
-		{ className: 'icon-suoshuxiangcun', type: '乡村' },
-		{ className: 'icon-huaxue', type: '滑雪' },
-		{ className: 'icon-pool', type: '游泳' }
+		{ className: 'icon-luyingcamping1', type: 'Outdoor' },
+		{ className: 'icon-Desert', type: 'Desert' },
+		{ className: 'icon-Snowflake', type: 'Snow' },
+		{ className: 'icon-beach-parasol-water-', type: 'Beach' },
+		{ className: 'icon-xianxinghaidao', type: 'Island' },
+		{ className: 'icon-building-modern-1', type: 'Urban' },
+		{ className: 'icon-diaoyu', type: 'Fishing' },
+		{ className: 'icon-suoshuxiangcun', type: 'Countryside' },
+		{ className: 'icon-huaxue', type: 'Skiing' },
+		{ className: 'icon-pool', type: 'Swimming' }
 	]
 	//所有可存在房子的国家
-	const regions = [
-		{
-			region: '亚洲',
-			country: '中国',
-			latlng: [60, 19.9]
-		},
-		{
-			region: '亚洲',
-			country: '日本',
-			latlng: [50, 13.9]
-		},
-		{
-			region: 'any',
-			country: 'where',
-			latlng: [50, 13.9]
+
+	const regions = worldCountries.map(({ name, region, latlng }) => {
+		return {
+			region,
+			country: name.common,
+			latlng,
 		}
-	]
+	})
+	regions.sort((f, s) => {
+    console.log(f.country[0], s.country[0]);
+    return f.region[0].localeCompare(s.region[0]);
+});
+	regions.unshift({
+		region: 'any',
+		country: 'where',
+		latlng: [35, 105]
+	})
 	return { icons, regions }
+
+	/* 
+	---国际化... 
+	*/
 }

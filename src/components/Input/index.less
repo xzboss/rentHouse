@@ -13,13 +13,17 @@
 		color: rgba(0, 0, 0, .5);
 	}
 
+	.input-valid {
+		border: 1px solid var(--color-red);
+	}
+
 	input {
 		width: 100%;
 		outline-style: none;
 		border-style: none;
-		border: 1px solid rgba(0, 0, 0, .1);
+		border: 1px solid var(--color-green);
 		padding: 15px;
-		caret-color: rgb(56, 255, 106);
+		caret-color: var(--color-green);
 		border-radius: 2px;
 		transition: all .3s;
 
@@ -30,7 +34,7 @@
 		/* 聚焦后 */
 		&:focus {
 			border-width: 2px;
-			border-color: rgba(0, 0, 0, .3);
+			border-color: var(--color-green);
 			border-radius: 10px;
 
 			+label {

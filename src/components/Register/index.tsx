@@ -59,19 +59,19 @@ export default (props: any) => {
 
 	return (
 		<Space direction='vertical' style={{ width: '100%' }}>
-			<h1 style={{ textAlign: 'center' }}>Register</h1>
+			<h1 style={{ textAlign: 'center' }}>Sing up</h1>
 			<TextInput
 				onchange={(verifyed: boolean, content: string) => valid(verifyed, content, 0)}
 				reg={/^[a-zA-Z][a-zA-Z0-9_]{4,15}$/}
-				tip='字母开头-5~16位-字母数字下划线' />
+				tip='Beginning of the letter, 5~16 characters and  _' />
 			<EmailInput
 				onchange={(verifyed: boolean, content: string) => valid(verifyed, content, 1)}
 				reg={/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/}
-				tip='请输入有效邮箱' />
+				tip='Please enter a valid email address' />
 			<PasswordInput
 				onchange={(verifyed: boolean, content: string) => valid(verifyed, content, 2)}
-				reg={/^[a-zA-Z]\w{5,17}$/}
-				tip='字母开头-6~18位-只能包含字母、数字和下划线' />
+				reg={/^\w{5,17}$/}
+				tip='6~18 characters,only letters,numbers and  _' />
 			<PrimaryButton
 				style={{ height: '50px' }}
 				disabled={!disabled}
@@ -79,8 +79,8 @@ export default (props: any) => {
 				{isLoading ? <LoadingAnimation /> : 'Register'}
 			</PrimaryButton>
 			<div className={style.des}>
-				已经有账户？
-				<b className={style.a} onClick={toLogin}>去登陆</b>
+				Already have an account?&nbsp;
+				<b className={style.a} onClick={toLogin}>to sing in</b>
 			</div>
 		</Space>
 	)
