@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react'
+import React from 'react'
 import { Link, useModel, useNavigate, useParams, history } from 'umi'
 import type, {
 	Row,
@@ -6,9 +6,7 @@ import type, {
 	Dropdown,
 	MenuProps,
 	Divider,
-	Space,
-	Button,
-	Modal
+	Space
 } from 'antd'
 import { MenuOutlined, UserOutlined } from '@ant-design/icons'
 import './index.less'

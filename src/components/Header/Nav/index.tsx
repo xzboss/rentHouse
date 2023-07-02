@@ -1,5 +1,4 @@
-import React from 'react'
-import { Divider } from 'antd'
+
 import NavItem from './NavItem'
 import { useModel } from 'umi'
 import style from './index.less'

@@ -1,14 +1,13 @@
 import React, { useEffect, useState, useMemo } from 'react'
 
 import { useModel } from 'umi'
-import { Space, Divider } from 'antd'
+import { Space } from 'antd'
 import { TextInput, PasswordInput, EmailInput } from '../Input'
 import { PrimaryButton } from '../Button'
 import style from './index.less'
 import Login from '../Login'
-import { debounce, throttle } from '@/utils'
 import { notifySuccess, notifyWarn } from '@/utils/modal'
-import { TIMEOUT, CODE } from '@/constants'
+import { CODE } from '@/constants'
 import LoadingAnimation from '@/components/LoadingAnimation'
 import { incrementUser } from '@/service/api'
 export default (props: any) => {

@@ -1,7 +1,6 @@
 /* 一些全局静态数据,默认数据 */
 import React from 'react'
 import worldCountries from 'world-countries'
-console.log(worldCountries)
 interface NavItemType {
 	className: string
 	type: string
@@ -30,9 +29,8 @@ export default function staticModel() {
 		}
 	})
 	regions.sort((f, s) => {
-    console.log(f.country[0], s.country[0]);
-    return f.region[0].localeCompare(s.region[0]);
-});
+		return f.region[0].localeCompare(s.region[0])
+	})
 	regions.unshift({
 		region: 'any',
 		country: 'where',

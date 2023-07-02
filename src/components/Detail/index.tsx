@@ -10,7 +10,6 @@ import Calendar from '@/components/Calendar'
 import dayjs, { Dayjs } from 'dayjs'
 import houseDefault from '@/assets/houseDefault.jpg'
 import Login from '@/components/Login'
-import { listingProps } from '@/types'
 import {
 	getReservedRanges,
 	incrementReservation,
@@ -156,12 +155,14 @@ const FC: React.FC<DetailProps> = (props) => {
 			<br />
 			<h1>{title}</h1>
 			<p className=''>{locationValue}</p>
-			<div className={style.img}>
+			<div className={style.imgBox}>
 				<HeartButton
 					onClick={clickHeart}
 					blur={blur ? 1 : 0}
 					style={{ right: '5%', top: '5%' }} />
-				<Image style={{ borderRadius: '15px' }}
+				<Image
+					rootClassName={style.imgParent}
+					style={{ borderRadius: '15px' }}
 					onError={() => { }}
 					width={'100%'}
 					preview={false}

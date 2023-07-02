@@ -1,4 +1,50 @@
-.container {
-  //padding: 0 8vw;
+@media screen and (min-width:1000px) {
+  .floatBtn {
+    display: none !important;
+  }
 }
 
+.container {
+
+  //padding: 0 8vw;
+  .floatBtn {
+    z-index: 999;
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    animation: shadow-drop-2-bl 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    width: 10vmin;
+    height: 10vmin;
+    min-width: 80px;
+    min-height: 80px;
+    background-color: #fff;
+    position: fixed;
+    bottom: 5vmin;
+    padding: 0;
+    left: 9vw;
+    color: var(--color-green);
+
+    &:hover {
+      font-size: 1.6rem;
+    }
+
+    span {
+      font-size: 2rem !important;
+    }
+  }
+}
+
+@keyframes shadow-drop-2-bl {
+  0% {
+    transform: translateZ(0) translateY(100px);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+
+  100% {
+    transform: translateZ(50px) translateY(0);
+    box-shadow: -12px 12px 20px -12px rgba(0, 0, 0, 0.5);
+  }
+}

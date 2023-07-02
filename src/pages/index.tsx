@@ -3,9 +3,6 @@ import Container from '@/components/Container'
 import { useModel, useParams } from 'umi'
 import { findListing, getAllListing } from '@/service/api'
 import { listingProps } from '@/types'
-import type { Dayjs } from 'dayjs'
-import dayjs from 'dayjs'
-import Property from '@/components/Property'
 export default function HomePage() {
   const params = useParams()
   const [listings, setListings] = useState<listingProps[]>()

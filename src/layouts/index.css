@@ -1,0 +1,41 @@
+@media screen and (min-width: 1000px) {
+  .floatBtn {
+    display: none !important;
+  }
+}
+.container .floatBtn {
+  z-index: 999;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  animation: shadow-drop-2-bl 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  width: 10vmin;
+  height: 10vmin;
+  min-width: 80px;
+  min-height: 80px;
+  background-color: #fff;
+  position: fixed;
+  bottom: 5vmin;
+  padding: 0;
+  left: 9vw;
+  color: var(--color-green);
+}
+.container .floatBtn:hover {
+  font-size: 1.6rem;
+}
+.container .floatBtn span {
+  font-size: 2rem !important;
+}
+@keyframes shadow-drop-2-bl {
+  0% {
+    transform: translateZ(0) translateY(100px);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+  100% {
+    transform: translateZ(50px) translateY(0);
+    box-shadow: -12px 12px 20px -12px rgba(0, 0, 0, 0.5);
+  }
+}

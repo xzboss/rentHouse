@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+
 import style from './index.less'
 import { getRandom, getColor } from '@/utils'
 export default (props: any) => {

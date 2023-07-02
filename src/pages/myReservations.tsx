@@ -8,7 +8,7 @@ import dayjs from 'dayjs'
 import { notifySuccess, notifyWarn } from '@/utils/modal'
 
 export default (props: any) => {
-	const { userDetail, setUserDetail } = useModel('userModel')
+	const { userDetail } = useModel('userModel')
 	const [listings, setListings] = useState<any>()
 	console.log(listings)
 	

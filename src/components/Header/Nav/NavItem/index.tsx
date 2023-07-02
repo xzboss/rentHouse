@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { history, useParams, useModel } from 'umi'
 import '@/assets/icon/iconfont.css'
 import style from './index.less'
@@ -10,7 +10,6 @@ interface _props {
 }
 export default (props: _props) => {
 	const { type } = useParams()
-	const { data, setData } = useModel('searchModel')
 	const handleClick = () => {
 		history.push(`/${props.data.type}`)
 	}

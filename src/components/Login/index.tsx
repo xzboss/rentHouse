@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useModel, history, useLocation } from 'umi'
-import { Space, Modal } from 'antd'
-import { TextInput, PasswordInput, EmailInput } from '../Input'
+import { Space } from 'antd'
+import { PasswordInput, EmailInput } from '../Input'
 import { PrimaryButton } from '../Button'
 import style from './index.less'
 import Register from '../Register'
@@ -19,7 +19,7 @@ export default (props: any) => {
 		setDisabled,
 		isLoading,
 		setIsLoading } = useModel('globalModel')
-	const { isLogin, setIsLogin, userDetail, setUserDetail } = useModel('userModel')
+	const { setIsLogin, setUserDetail } = useModel('userModel')
 	const [data, setData] = useState<Record<string, any>>({ email: '', password: '' })
 	const { pathname, state } = useLocation()
 

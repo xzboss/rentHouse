@@ -1,14 +1,18 @@
 import { useMemo } from 'react'
-import { Link, Outlet, useModel } from 'umi'
-import { Modal } from 'antd'
+import { Outlet, useModel, history, useLocation } from 'umi'
+import { HomeOutlined } from '@ant-design/icons'
+
 import './index.less'
 import Header from '@/components/Header'
-import { TxtButton } from '@/components/Button'
 import Bg from '@/components/Bg'
 export default function Layout() {
-  const { isLogin } = useModel('userModel')
   const { contextHolder } = useModel('globalModel')
   const BgMemo = useMemo(() => <Bg />, [])
+  const location = useLocation()
+  const handleClick = () => {
+    if (location.pathname === '/all') return
+    history.push('/')
+  }
   return (
     <div className='container'>
       {BgMemo}
@@ -17,6 +21,10 @@ export default function Layout() {
         <Outlet />
       </div>
       {contextHolder}
+      <div className='floatBtn'
+        onClick={handleClick}>
+        <HomeOutlined />
+      </div>
     </div>
   );
 }

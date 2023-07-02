@@ -6,6 +6,7 @@
 :root {
 	--color-green: @green;
 	--color-red: @red;
+	--img-width: 25vmin;
 }
 
 * {
@@ -32,21 +33,27 @@
 	}
 }
 
+
+@media screen and (max-width:1000px) {
+	:root {
+		--img-width: 40vmin;
+	}
+}
+
+@media screen and (max-width:500px) {
+	:root {
+		--img-width: 84vmin;
+	}
+}
+
 .house-list {
 	margin-top: 1rem;
 	display: grid;
-	grid-template-columns: repeat(auto-fill, 25vmin);
+	grid-template-columns: repeat(auto-fill, var(--img-width));
 	grid-gap: 2vmin;
-	/* grid-template-rows: auto; */
 	justify-content: space-between;
 }
 
 .ant-modal-confirm-content {
 	width: 100%;
 }
-
-/* .a {
-	display: inline-block;
-	text-align: center;
-	width: 100%;
-} */

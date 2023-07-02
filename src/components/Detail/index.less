@@ -1,13 +1,19 @@
 @grayColor: gray;
 @import url('../../global.less');
+@minHeight: 50vmin;
 
-.img {
+.imgBox {
 	border-radius: @borderRadius;
 	position: relative;
-	min-height: 35vw;
+	height: @minHeight;
 	overflow: hidden;
 	margin-bottom: 50px;
-	img{
+
+	.imgParent {
+		height: @minHeight;
+	}
+
+	img {
 		position: absolute;
 		top: 50%;
 		transform: translateY(-50%);

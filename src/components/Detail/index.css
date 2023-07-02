@@ -1,3 +1,8 @@
+:root {
+  --color-green: #14d05b;
+  --color-red: #ef551e;
+  --img-width: 25vmin;
+}
 * {
   /* border: 1px solid black; */
   padding: 0;
@@ -16,17 +21,38 @@
   border-radius: 10px !important;
   background-color: rgba(20, 208, 91, 0.5) !important;
 }
+@media screen and (max-width: 1000px) {
+  :root {
+    --img-width: 40vmin;
+  }
+}
+@media screen and (max-width: 500px) {
+  :root {
+    --img-width: 84vmin;
+  }
+}
+.house-list {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, var(--img-width));
+  grid-gap: 2vmin;
+  /* grid-template-rows: auto; */
+  justify-content: space-between;
+}
 .ant-modal-confirm-content {
   width: 100%;
 }
-.img {
+.imgBox {
   border-radius: 15px;
   position: relative;
-  min-height: 35vw;
+  height: 50vmin;
   overflow: hidden;
   margin-bottom: 50px;
 }
-.img img {
+.imgBox .imgParent {
+  height: 50vmin;
+}
+.imgBox img {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
