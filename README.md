@@ -1,5 +1,5 @@
 # rentHouse 租房系统前端 HavenRent
-## 上线地址 http://115.159.222.245:8000 或 http://52xu.top
+## 上线地址 http://115.159.222.245 或 http://52xu.top
 # umi@4 + ts + antd + leaflet + less + modal + axios
 - 响应式布局兼容移动端
 - antd组件二次封装，
