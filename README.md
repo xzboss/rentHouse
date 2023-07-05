@@ -1,5 +1,6 @@
 # rentHouse 租房系统前端 HavenRent
 ## 上线地址 http://115.159.222.245 或 www.52xu.top
+### 后端项目地址 https://github.com/xzboss/rentHouseService
 # umi@4 + ts + antd + leaflet + less + modal + axios
 - 响应式布局兼容移动端
 - antd组件二次封装，
