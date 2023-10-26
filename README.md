@@ -43,7 +43,8 @@
 ![image](https://github.com/xzboss/rentHouse/assets/90434394/8d41a3e3-b5b6-441e-8ea2-f7f5f5d5d14b)
 
 
-
+> pnpm install
+> pnpm start
 
 
 

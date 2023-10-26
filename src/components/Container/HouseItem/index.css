@@ -45,6 +45,8 @@
 .house-item .imgBox .imgAnt .img {
   width: 100%;
   border-radius: 10px;
+  object-fit: cover;
+  height: 100%;
 }
 .house-item .imgBox .imgAnt:hover {
   transform: scale(1.1);

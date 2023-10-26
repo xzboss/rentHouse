@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useModel, history, useLocation } from 'umi'
 import { Space } from 'antd'
+import { GithubOutlined } from '@ant-design/icons';
 import { PasswordInput, EmailInput } from '../Input'
 import { PrimaryButton } from '../Button'
 import style from './index.less'
@@ -50,6 +51,13 @@ export default (props: any) => {
 		setIsLoading(false)
 	}
 
+	/**
+	 * OAuth
+	 */
+	const githubOAuth = () => {
+
+	}
+
 	const changeHandler = (content: string, key: string) => {
 		data[key] = content
 		setData({ ...data })
@@ -73,9 +81,9 @@ export default (props: any) => {
 				disabled={!disabled}>
 				{isLoading ? <LoadingAnimation /> : 'Login'}
 			</PrimaryButton>
+			<GithubOutlined onClick={githubOAuth} className={style.githubIcon} style={{ fontSize: '32px' }} />
 			<div className={style.des}>
-				Don't have an account yet?&nbsp;
-				<b className={style.a} onClick={toRegister}>Create an account</b>
+				<b className={style.a} onClick={toRegister}>Don't have an account yet?</b>
 			</div>
 		</Space>
 	)

@@ -2,6 +2,11 @@ import request from './request'
 import { listingProps, userProps } from '@/types'
 const { get, post, put, remove } = request
 
+//OAuth
+export const getOAuthConfig = async () => {
+	return await get(`proxy/api/OAuthConfig`)
+}
+
 //-----------listing
 export const findListing = async (query: listingProps) => {
 	return await get(`proxy/api/findListing`, query)
@@ -15,7 +20,7 @@ export const removeListingById = async (listingId: string) => {
 export const incrementListing = async (listing: any) => {
 	return await post(`proxy/api/incrementListing`, listing)
 }
-export const uploadImg = async (formData:any) => {
+export const uploadImg = async (formData: any) => {
 	return await post(`proxy/api/uploadImg`, formData)
 }
 
