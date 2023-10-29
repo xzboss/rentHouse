@@ -6,7 +6,7 @@ export default function userModel() {
 	//防重复提交
 	const [disabled, setDisabled] = useState<boolean>(false)
 	const [isLoading, setIsLoading] = useState<boolean>(false)
-	const [OAuthConfig, setOAuthConfig] = useState<any>({})
+	const [OAuthConfig, setOAuthConfig] = useState<Record<any, any>>()
 	//弹窗
 	const [modal, contextHolder] = Modal.useModal()
 	const openModal = (node: React.ReactNode) => {

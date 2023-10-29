@@ -19,7 +19,8 @@ export default (props: any) => {
 		disabled,
 		setDisabled,
 		isLoading,
-		setIsLoading } = useModel('globalModel')
+		setIsLoading,
+		OAuthConfig } = useModel('globalModel')
 	const { setIsLogin, setUserDetail } = useModel('userModel')
 	const [data, setData] = useState<Record<string, any>>({ email: '', password: '' })
 	const { pathname, state } = useLocation()
@@ -56,6 +57,9 @@ export default (props: any) => {
 	 */
 	const githubOAuth = () => {
 
+		const { url, client_id, redirect_uri, state } = OAuthConfig?.github
+		console.log(`${url}?client_id=${client_id}&redirect_uri=${encodeURIComponent(redirect_uri)}&state=${state}`, '@@@@@')
+		window.location.href = `${url}?client_id=${client_id}&redirect_uri=${encodeURIComponent(redirect_uri)}&state=${state}`
 	}
 
 	const changeHandler = (content: string, key: string) => {
