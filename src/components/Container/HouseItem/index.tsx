@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { history, useModel } from 'umi'
 import { Image } from 'antd'
 import style from './index.less'
@@ -14,12 +14,13 @@ interface HouseItemProps {
 	display?: string
 	height?: string
 	children?: React.ReactNode
+	observe?: any
+	final?: boolean
 }
-const App: React.FC<HouseItemProps> = ({ btnStyle, listing, btnDes, btnClick }) => {
+const App: React.FC<HouseItemProps> = ({ btnStyle, listing, btnDes, btnClick, observe, final }) => {
 	const { isLogin, userDetail, setUserDetail } = useModel('userModel')
 	const { openModal } = useModel('globalModel')
 	const [blur, setBlur] = useState(userDetail?.favoriteIds?.includes(listing?._id as string))
-
 
 	/**
 	 * to /detail
@@ -55,6 +56,14 @@ const App: React.FC<HouseItemProps> = ({ btnStyle, listing, btnDes, btnClick }) 
 		btnClick?.(listing._id, listing.reservationId, listing.reserveBy)
 	}
 
+	useEffect(() => {
+		const img: any = document.querySelector('._' + listing._id)
+		if (img) { img.dataset.src = listing.imageSrc }
+		if (final) {
+			observe()
+		}
+	}, [])
+
 	return (
 		<div className={style['house-item']} onClick={handleClick}>
 			<div className={style.imgBox}>
@@ -62,12 +71,10 @@ const App: React.FC<HouseItemProps> = ({ btnStyle, listing, btnDes, btnClick }) 
 					blur={blur ? 1 : 0}
 					onClick={clickHeart}
 					className={style.heart} />
-				<Image className={style.img}
+				<Image className={style.img + ` _${listing._id} lazy`}
 					rootClassName={style.imgAnt}
 					onError={() => { }}
-					fallback={houseDefault}
 					preview={false}
-					src={listing?.imageSrc}
 				/>
 			</div>
 
