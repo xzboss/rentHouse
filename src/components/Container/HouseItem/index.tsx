@@ -14,10 +14,9 @@ interface HouseItemProps {
 	display?: string
 	height?: string
 	children?: React.ReactNode
-	observe?: any
 	final?: boolean
 }
-const App: React.FC<HouseItemProps> = ({ btnStyle, listing, btnDes, btnClick, observe, final }) => {
+const App: React.FC<HouseItemProps> = ({ btnStyle, listing, btnDes, btnClick, final }) => {
 	const { isLogin, userDetail, setUserDetail } = useModel('userModel')
 	const { openModal } = useModel('globalModel')
 	const [blur, setBlur] = useState(userDetail?.favoriteIds?.includes(listing?._id as string))
@@ -59,9 +58,17 @@ const App: React.FC<HouseItemProps> = ({ btnStyle, listing, btnDes, btnClick, ob
 	useEffect(() => {
 		const img: any = document.querySelector('._' + listing._id)
 		if (img) { img.dataset.src = listing.imageSrc }
-		if (final) {
-			observe()
-		}
+		const intersect = new IntersectionObserver((entries, observe) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					const img: any = entry.target;
+					img.src = img.dataset.src;
+					img.classList.remove("lazy");
+					intersect.unobserve(img);
+				}
+			});
+		});
+		intersect.observe(img);
 	}, [])
 
 	return (
